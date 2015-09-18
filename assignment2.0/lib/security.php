@@ -33,7 +33,7 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages[] = "q09.php";
     $whiteListPages[] = "q10.php";
     $whiteListPages[] = "q11.php";
-    $whiteListPages[] = "q12.php";
+    
     
 
     //add all the folders to this array

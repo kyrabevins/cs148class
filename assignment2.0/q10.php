@@ -10,9 +10,9 @@
 include "top.php";
 
 print "<table>";
-    $columns = 1;
-    $query = 'SELECT fldBuilding, SUM(fldNumStudents) AS num_studs FROM tblSections WHERE fldDays LIKE “%F%” GROUP BY fldBuilding ORDER BY num_studs DESC';
-    $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
+    $columns = 2;
+    $query = 'SELECT fldBuilding, SUM(fldNumStudents) AS num_studs FROM tblSections WHERE fldDays LIKE "%F%" GROUP BY fldBuilding ORDER BY num_studs DESC';
+    $info2 = $thisDatabaseReader->select($query,  "", 1, 1, 2, 0, false, false);
 
     $highlight = 0; // used to highlight alternate rows
     print '<h2>Total Records: ' . count($info2) . "</h2>";

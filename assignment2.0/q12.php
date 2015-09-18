@@ -10,9 +10,9 @@
 include "top.php";
 
 print "<table>";
-    $columns = 1;
+    $columns = 2;
     $query = 'SELECT fnkCourseId, SUM(fldNumStudents – fldMaxStudents) from tblSections WHERE (fldNumStudents-fldMaxStudents)>0 GROUP BY fnkCourseID';
-    $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
+    $info2 = $thisDatabaseReader->select($query,  "", 1, 0, 0, 3, false, false);
 
     $highlight = 0; // used to highlight alternate rows
     print '<h2>Total Records: ' . count($info2) . "</h2>";

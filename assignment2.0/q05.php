@@ -11,8 +11,8 @@ include "top.php";
 
 print "<table>";
     $columns = 2;
-    $query = 'SELECT fldFirstName, fldLastName FROM tblTeachers WHERE pmkNetId LIKE "R%0"';
-    $info2 = $thisDatabaseReader->select($query,  "", 1, 1, 4, 0, false, false);
+    $query = 'SELECT fldFirstName, fldLastName FROM tblTeachers WHERE pmkNetId LIKE "R%o"';
+    $info2 = $thisDatabaseReader->select($query,  "", 1, 0, 2, 0, false, false);
 
     $highlight = 0; // used to highlight alternate rows
     print '<h2>Total Records: ' . count($info2) . "</h2>";

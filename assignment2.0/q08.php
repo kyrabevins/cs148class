@@ -10,7 +10,7 @@
 include "top.php";
 
 print "<table>";
-    $columns = 1;
+    $columns = 2;
     $query = 'SELECT fldBuilding, COUNT(*) AS num_sections FROM tblSections GROUP BY fldBuilding';
     $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
 

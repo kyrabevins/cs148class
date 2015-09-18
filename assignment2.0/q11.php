@@ -11,8 +11,8 @@ include "top.php";
 
 print "<table>";
     $columns = 1;
-    $query = 'SELECT fnkCourseId FROM tblSections GROUP BY fnkCourseId HAVING COUNT(fldSection)>50';
-    $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
+    $query = 'SELECT fnkCourseId FROM tblSections GROUP BY fnkCourseId HAVING COUNT(fldSection)>=50';
+    $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 1, false, false);
 
     $highlight = 0; // used to highlight alternate rows
     print '<h2>Total Records: ' . count($info2) . "</h2>";

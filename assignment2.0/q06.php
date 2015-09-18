@@ -12,7 +12,7 @@ include "top.php";
 print "<table>";
     $columns = 1;
     $query = 'SELECT fldCourseName FROM tblCourses WHERE fldCourseName LIKE "%data%" AND fldDepartment NOT LIKE "CS"';
-    $info2 = $thisDatabaseReader->select($query,  "", 1, 1, 4, 0, false, false);
+    $info2 = $thisDatabaseReader->select($query,  "", 1, 2, 4, 0, false, false);
 
     $highlight = 0; // used to highlight alternate rows
     print '<h2>Total Records: ' . count($info2) . "</h2>";
