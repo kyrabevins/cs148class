@@ -15,8 +15,11 @@ print "<table>";
     $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 1, false, false);
 
     $highlight = 0; // used to highlight alternate rows
-    print '<h2>Total Records: ' . count($info2) . "</h2>";
-    print '<p> SQL: ' . $query . '</p>';
+    print '<br>';
+    print '<h1>Total Records: ' . count($info2) . "</h1>";
+    print '<br>';
+    print '<h2> SQL: ' . $query . '</h2>';
+    print '<br>';
     foreach ($info2 as $rec) {
         $highlight++;
         if ($highlight % 2 != 0) {
