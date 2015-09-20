@@ -7,8 +7,8 @@ require_once('lib/custom-functions.php');
     <head>
         <title>CS148 Assignment2.0</title>
         <meta charset="utf-8">
-        <meta name="author" content="Mark me wrong">
-        <meta name="description" content="Mark me wrong for not changing this">
+        <meta name="author" content="Kyra Bevins">
+        <meta name="description" content="This is assignment 2.0 for CS148, which demonstrates how to make sql statements.">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
