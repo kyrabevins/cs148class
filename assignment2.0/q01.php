@@ -39,8 +39,6 @@ print "<table>";
     }
     // all done
     print '</table>';
-    print '</aside>';
-
-print '</article>';
+    
 include "footer.php";
 ?>
