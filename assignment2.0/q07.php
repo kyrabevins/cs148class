@@ -8,9 +8,7 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
-
-print "<table>";
-    $columns = 1;
+$columns = 1;
     $query = 'SELECT DISTINCT fldDepartment FROM tblCourses';
     $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
 
@@ -21,6 +19,8 @@ print "<table>";
     print '<br>';
     print '<h2> SQL: ' . $query . '</h2>';
     print '<br>';
+print "<table>";
+    
     foreach ($info2 as $rec) {
         $highlight++;
         if ($highlight % 2 != 0) {
@@ -36,9 +36,7 @@ print "<table>";
     }
     // all done
     print '</table>';
-    print '</aside>';
-
-print '</article>';
+    
 include "footer.php";
 ?>
 
