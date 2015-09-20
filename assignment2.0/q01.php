@@ -8,18 +8,22 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
-
-print "<table>";
-    $columns = 1;
+$columns = 1;
     $query = 'SELECT pmkNetId FROM tblTeachers';
     $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
-
-    $highlight = 0; // used to highlight alternate rows
-    
-    print '<h1>Total Records: ' . count($info2) . "</h1>";
+print '<h1>Total Records: ' . count($info2) . "</h1>";
     print '<br>';
     print '<h2> SQL: ' . $query . '</h2>';
     print '<br>';
+    
+    
+print "<table>";
+
+    
+
+    $highlight = 0; // used to highlight alternate rows
+    
+    
     foreach ($info2 as $rec) {
         $highlight++;
         if ($highlight % 2 != 0) {
