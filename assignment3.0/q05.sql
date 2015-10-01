@@ -1,0 +1,1 @@
+SELECT fldFirstName, fldLastName, COUNT(DISTINCT fnkStudentId) AS total FROM tblSections, tblEnrolls, tblTeachers WHERE tblSections.fnkCourseId=tblEnrolls.fnkCourseId AND tblSections.fnkTeacherNetId=tblTeachers.pmkNetId AND fldNumStudents>0 GROUP BY pmkNetId ORDER BY total DESC;

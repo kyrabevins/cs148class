@@ -1,0 +1,1 @@
+SELECT fldCRN, fldFirstName, fldLastName FROM tblStudents, tblEnrolls, tblCourses, tblSections WHERE tblStudents.pmkStudentId=tblEnrolls.fnkStudentId AND tblEnrolls.fnkCourseId=tblSections.fnkCourseId AND tblEnrolls.fnkCourseId=tblCourses.pmkCourseId AND fldCourseNumber=148 AND fldDepartment="CS" GROUP BY pmkStudentId ORDER BY fldCRN,fldLastName,fldFirstName;

@@ -8,9 +8,9 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
-$columns = 1;
-    $query = 'SELECT DISTINCT fldCourseName FROM tblCourses, tblEnrolls WHERE tblCourses.pmkCourseId=tblEnrolls.fnkCourseId AND fldGrade=100 ORDER BY fldCourseName';
-    $info2 = $thisDatabaseReader->select($query,  "", 1, 2, 0, 0, false, false);
+$columns = 3;
+    $query = 'SELECT fldCRN, fldFirstName, fldLastName FROM tblStudents, tblEnrolls, tblCourses, tblSections WHERE tblStudents.pmkStudentId=tblEnrolls.fnkStudentId AND tblEnrolls.fnkCourseId=tblSections.fnkCourseId AND tblEnrolls.fnkCourseId=tblCourses.pmkCourseId AND fldCourseNumber=148 AND fldDepartment="CS" GROUP BY pmkStudentId ORDER BY fldCRN,fldLastName,fldFirstName';
+    $info2 = $thisDatabaseReader->select($query,  "", 1, 5, 2, 0, false, false);
 print '<h1>Total Records: ' . count($info2) . "</h1>";
     print '<br>';
     print '<h2> SQL: ' . $query . '</h2>';

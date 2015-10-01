@@ -1,1 +1,1 @@
-SELECT pmkNetId FROM tblTeachers;
+SELECT DISTINCT fldCourseName FROM tblCourses, tblEnrolls WHERE tblCourses.pmkCourseId=tblEnrolls.fnkCourseId AND fldGrade=100 ORDER BY fldCourseName;
