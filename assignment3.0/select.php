@@ -11,24 +11,22 @@
     
     <p><b>q01.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment3.0/q01.php">SQL:</a>   SELECT DISTINCT fldCourseName FROM tblCourses, tblEnrolls WHERE tblCourses.pmkCourseId=tblEnrolls.fnkCourseId AND fldGrade=100 ORDER BY fldCourseName;</p>
     <br>
-    <p><b>q02.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q02.php">SQL:</a>   SELECT fldDepartment FROM tblCourses WHERE fldCourseName LIKE "Introduction%";</p>
+    <p><b>q02.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment3.0/q02.php">SQL:</a>   SELECT DISTINCT fldDays, fldStart FROM tblSections, tblTeachers WHERE tblSections.fnkTeacherNetId=tblTeachers.pmkNetId AND fldFirstName LIKE "Robert%" AND fldLastName = "Snapp" ORDER BY fldStart;</p>
     <br>
-    <p><b>q03.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q03.php">SQL:</a>   SELECT * FROM tblSections WHERE fldStart = "13:10:00" AND fldBuilding = "Kalkin";</p>
+    <p><b>q03.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment3.0/q03.php">SQL:</a>   SELECT DISTINCT fldCourseName, fldDays, fldStart FROM tblCourses, tblSections, tblTeachers WHERE tblSections.fnkTeacherNetId=tblTeachers.pmkNetId AND tblSections.fnkCourseId=tblCourses.pmkCourseId AND fldLastName="Horton" AND fldFirstName LIKE "Jackie%" ORDER BY  fldStart;</p>
     <br>
-    <p><b>q04.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q04.php">SQL:</a>   SELECT * FROM tblCourses WHERE fldDepartment = “CS” AND fldCourseNumber = 148;</p>
+    <p><b>q04.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment3.0/q04.php">SQL:</a>   SELECT fldCRN, fldFirstName, fldLastName FROM tblStudents, tblEnrolls, tblCourses, tblSections WHERE tblStudents.pmkStudentId=tblEnrolls.fnkStudentId AND tblEnrolls.fnkCourseId=tblSections.fnkCourseId AND tblEnrolls.fnkCourseId=tblCourses.pmkCourseId AND fldCourseNumber=148 AND fldDepartment="CS" GROUP BY pmkStudentId ORDER BY fldCRN,fldLastName,fldFirstName;</p>
     <br>
-    <p><b>q05.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q05.php">SQL:</a>   SELECT fldFirstName, fldLastName FROM tblTeachers WHERE pmkNetId LIKE "R%o";</p>
+    <p><b>q05.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment3.0/q05.php">SQL:</a>   SELECT tblTeachers.fldFirstName, tblTeachers.fldLastName,  count(tblStudents.fldFirstName) as total
+FROM tblSections
+JOIN tblEnrolls on tblSections.fldCRN  = tblEnrolls.`fnkSectionId`
+JOIN tblStudents on pmkStudentId = fnkStudentId
+JOIN tblTeachers on tblSections.fnkTeacherNetId=pmkNetId
+WHERE fldType != "LAB"
+group by fnkTeacherNetId
+ORDER BY total desc;</p>
     <br>
-    <p><b>q06.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q06.php">SQL:</a>   SELECT fldCourseName FROM tblCourses WHERE fldCourseName LIKE “%data%” AND fldDepartment NOT LIKE “CS”;</p>
-    <br>
-    <p><b>q07.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q07.php">SQL:</a>   SELECT COUNT(DISTINCT fldDepartment) FROM tblCourses;</p>
-    <br>
-    <p><b>q08.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q08.php">SQL:</a>   SELECT fldBuilding, COUNT(*) AS num_sections FROM tblSections GROUP BY fldBuilding;</p>
-    <br>
-    <p><b>q09.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q09.php">SQL:</a>   SELECT fldBuilding, SUM(fldNumStudents) AS num_studs FROM tblSections WHERE fldDays LIKE “%W%” GROUP BY fldBuilding ORDER BY num_studs DESC;</p>
-    <br>
-    <p><b>q10.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q10.php">SQL:</a>   SELECT fldBuilding, SUM(fldNumStudents) AS num_studs FROM tblSections WHERE fldDays LIKE “%F%” GROUP BY fldBuilding ORDER BY num_studs DESC;</p>
-    <br>
-    <p><b>q11.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment2.0/q11.php">SQL:</a>   SELECT fnkCourseId FROM tblSections GROUP BY fnkCourseId HAVING COUNT(fldSection)>=50;</p>
+    <p><b>q06.</b>   <a href="https://kbevins.w3.uvm.edu/cs148/assignment3.0/q06.php">SQL:</a>   SELECT fldFirstName,fldPhone,fldSalary FROM tblTeachers WHERE fldSalary < (SELECT AVG(fldSalary) FROM tblTeachers);</p>
+    
 
 </html>
