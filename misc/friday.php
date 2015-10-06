@@ -8,24 +8,18 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
-$columns = 3;
-    $query = 'SELECT tblTeachers.fldFirstName, tblTeachers.fldLastName,  count(tblStudents.fldFirstName) as total
-FROM tblSections
-JOIN tblEnrolls on tblSections.fldCRN  = tblEnrolls.`fnkSectionId`
-JOIN tblStudents on pmkStudentId = fnkStudentId
-JOIN tblTeachers on tblSections.fnkTeacherNetId=pmkNetId
-WHERE fldType != "LAB"
-group by fnkTeacherNetId
-ORDER BY total desc';
-    
-    $info2 = $thisDatabaseReader->select($query,  "", 0, 1, 2, 0, false, false);
+$columns = 8;
+    $query = 'SELECT pmkStudentId, fldFirstName, fldLastName, fldStreetAddress, fldCity, fldState, fldZip, fldGender FROM tblStudents ORDER BY fldLastName, fldFirstName LIMIT 10 OFFSET 990';
+    $info2 = $thisDatabaseReader->select($query,  "", 0, 1, 0, 0, false, false);
+    //$info2 = $thisDatabaseReader->testquery($query,  "", 0, 0, 1, 0, false, false);
 print '<h1>Total Records: ' . count($info2) . "</h1>";
     print '<br>';
     print '<h2> SQL: ' . $query . '</h2>';
     print '<br>';
     
-    
+   
 print "<table>";
+print "<tr><th>First Name</th><th>Last Name</th><th>Street Address</th><th>City</th><th>State</th><th>Zip Code</th><th>Gender</th></tr>";
 
     
 
