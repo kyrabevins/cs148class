@@ -28,3 +28,4 @@
     <li><a href="assignment3.0/q06.php">q06</a></li>
     
 </ul>
+   <p><a href="misc/friday.php">Friday Assignment</a></p>

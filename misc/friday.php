@@ -8,10 +8,12 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
+$lowerLimit = 10;
+$upperLimit = 999;
 $columns = 8;
-    $query = 'SELECT pmkStudentId, fldFirstName, fldLastName, fldStreetAddress, fldCity, fldState, fldZip, fldGender FROM tblStudents ORDER BY fldLastName, fldFirstName LIMIT 10 OFFSET 990';
+    $query = 'SELECT pmkStudentId, fldFirstName, fldLastName, fldStreetAddress, fldCity, fldState, fldZip, fldGender FROM tblStudents ORDER BY fldLastName, fldFirstName LIMIT '. $lowerLimit. ' OFFSET '. $upperLimit;
     $info2 = $thisDatabaseReader->select($query,  "", 0, 1, 0, 0, false, false);
-    //$info2 = $thisDatabaseReader->testquery($query,  "", 0, 0, 1, 0, false, false);
+    //$info2 = $thisDatabaseReader->testquery($query,  "", 0, 1, 0, 0, false, false);
 print '<h1>Total Records: ' . count($info2) . "</h1>";
     print '<br>';
     print '<h2> SQL: ' . $query . '</h2>';
@@ -19,7 +21,7 @@ print '<h1>Total Records: ' . count($info2) . "</h1>";
     
    
 print "<table>";
-print "<tr><th>First Name</th><th>Last Name</th><th>Street Address</th><th>City</th><th>State</th><th>Zip Code</th><th>Gender</th></tr>";
+print "<tr><th>Student Id</th><th>First Name</th><th>Last Name</th><th>Street Address</th><th>City</th><th>State</th><th>Zip Code</th><th>Gender</th></tr>";
 
     
 
