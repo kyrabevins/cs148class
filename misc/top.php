@@ -52,6 +52,7 @@ require_once('lib/custom-functions.php');
             $_SERVER[$key] = sanitize($value, false);
         }
         
+        
         $domain = "//"; // let the server set http or https as needed
         $server = htmlentities($_SERVER['SERVER_NAME'], ENT_QUOTES, "UTF-8");
         $domain .= $server;

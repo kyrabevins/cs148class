@@ -8,16 +8,21 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
+$start = (int)$_GET["start"];
+
 $lowerLimit = 10;
 $upperLimit = 999;
 $columns = 8;
-    $query = 'SELECT pmkStudentId, fldFirstName, fldLastName, fldStreetAddress, fldCity, fldState, fldZip, fldGender FROM tblStudents ORDER BY fldLastName, fldFirstName LIMIT '. $lowerLimit. ' OFFSET '. $upperLimit;
+    
+    $query = 'SELECT pmkStudentId, fldFirstName, fldLastName, fldStreetAddress, fldCity, fldState, fldZip, fldGender FROM tblStudents ORDER BY fldLastName, fldFirstName LIMIT '. $lowerLimit. ' OFFSET '. $start;
     $info2 = $thisDatabaseReader->select($query,  "", 0, 1, 0, 0, false, false);
     //$info2 = $thisDatabaseReader->testquery($query,  "", 0, 1, 0, 0, false, false);
 print '<h1>Total Records: ' . count($info2) . "</h1>";
     print '<br>';
     print '<h2> SQL: ' . $query . '</h2>';
     print '<br>';
+    $iteration = 10;
+    print '<p><a href="https://kbevins.w3.uvm.edu/cs148develop/misc/friday.php?start=' . ($start += $iteration) . ' ">Next 10 records</a>';
     
    
 print "<table>";
