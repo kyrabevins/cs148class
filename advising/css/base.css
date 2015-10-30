@@ -86,9 +86,35 @@ nav ol li{
 #table td {
     border: thin #000080 solid;
     border-collapse: collapse;
+    
 }
+
 
 #table th{
     text-align: left;
 }
+
+table{
+                border: medium #000080 solid;
+                border-collapse: collapse;
+                width: 90%;
+                margin: auto;
+                max-width: 600px;
+            }
+            tbody{height: 10em;
+                  overflow: auto;}
+            td, th {
+                border: thin #000080 solid;
+                border-collapse: collapse;
+            }
+            
+            
+
+            tr:nth-child(even) {
+                background-color: lightcyan;
+            }
+
+            tr:nth-child(odd){
+                background-color: whitesmoke;
+            }
 

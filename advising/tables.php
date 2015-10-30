@@ -13,8 +13,13 @@ if (isset($_GET['getRecordsFor'])) {
     $tableName = $_GET['getRecordsFor'];
 }
 // Begin output
+
+
 print '<article>';
 print '<h2>Database: ' . DATABASE_NAME . '</h2>';
+?>
+<br><p><a href="q01.php">Four Year Plans</a></p>
+<?php
 // print out a list of all the tables and their description
 // make each table name a link to display the record
 print '<section id="tables2" class="float_left">';

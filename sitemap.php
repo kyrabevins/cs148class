@@ -31,6 +31,7 @@
    <p><a href="misc/friday.php">Friday Assignment</a></p>
    <p><a href="advising/tables.php">In-Class Assignment</a></p>
    <ul>
+       <li><a href="advising/q01.php">Query</a></li>
        <li><a href="advising/Schema.pdf">Schema</a></li>
        <li><a href="advising/erd.pdf">Entity Relationship Diagram</a></li>
    </ul>
