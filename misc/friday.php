@@ -42,7 +42,7 @@ print "<tr><th>Student Id</th><th>First Name</th><th>Last Name</th><th>Street Ad
         }
         print '<tr class="' . $style . '">';
         for ($i = 0; $i < $columns; $i++) {
-            print '<td>' . $rec[$i] . '</td>';
+            print '<td><a href="http://www.oplin.org/tree/">' . $rec[$i] . '</a></td>';
         }
         print '</tr>';
     }

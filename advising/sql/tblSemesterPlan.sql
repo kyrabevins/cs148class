@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: webdb.uvm.edu
--- Generation Time: Oct 30, 2015 at 10:47 AM
+-- Generation Time: Oct 30, 2015 at 04:09 PM
 -- Server version: 5.5.45-37.4-log
 -- PHP Version: 5.3.3
 
@@ -25,9 +25,9 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tblSemesterPlan`
 --
-DROP TABLE IF EXISTS `tblSemesterPlan`;
+
 CREATE TABLE IF NOT EXISTS `tblSemesterPlan` (
-  `pmkYear` year(4) NOT NULL DEFAULT '0000',
+  `pmkYear` tinyint(1) NOT NULL DEFAULT '0',
   `pmkTerm` varchar(10) NOT NULL DEFAULT '',
   `fnkPlanId` int(10) NOT NULL DEFAULT '0',
   `fldDisplayOrder` int(20) DEFAULT NULL,
@@ -39,7 +39,14 @@ CREATE TABLE IF NOT EXISTS `tblSemesterPlan` (
 --
 
 INSERT INTO `tblSemesterPlan` (`pmkYear`, `pmkTerm`, `fnkPlanId`, `fldDisplayOrder`, `fldNumCredits`) VALUES
-(2015, 'Fall', 1, 1, 12);
+(1, 'Fall', 1, 1, 15),
+(1, 'Spring', 1, 2, 16),
+(2, 'Fall', 1, 1, 13),
+(2, 'Spring', 1, 2, 13),
+(3, 'Fall', 1, 1, 16),
+(3, 'Spring', 1, 2, 12),
+(4, 'Fall', 1, 1, 15),
+(4, 'Spring', 1, 2, 18);
 
 --
 -- Indexes for dumped tables
@@ -49,9 +56,8 @@ INSERT INTO `tblSemesterPlan` (`pmkYear`, `pmkTerm`, `fnkPlanId`, `fldDisplayOrd
 -- Indexes for table `tblSemesterPlan`
 --
 ALTER TABLE `tblSemesterPlan`
- ADD PRIMARY KEY (`pmkYear`,`pmkTerm`);
+ ADD PRIMARY KEY (`pmkYear`,`pmkTerm`,`fnkPlanId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-

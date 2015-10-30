@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: webdb.uvm.edu
--- Generation Time: Oct 30, 2015 at 12:09 PM
+-- Generation Time: Oct 30, 2015 at 04:05 PM
 -- Server version: 5.5.45-37.4-log
 -- PHP Version: 5.3.3
 
@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS `tblAdvisors` (
 --
 
 INSERT INTO `tblAdvisors` (`pmkAdvisorId`, `fldFirstName`, `fldLastName`) VALUES
-(12345, 'Gina', 'Bobby');
+(1, 'Gina', 'Bobby'),
+(2, 'Brett', 'Michaels');
 
 --
 -- Indexes for dumped tables

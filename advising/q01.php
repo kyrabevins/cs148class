@@ -8,8 +8,8 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
-$columns = 6;
-    $query = 'SELECT tblFourYrPlan.pmkPlanId, tblFourYrPlan.fldDateCreated, tblFourYrPlan.fldCatalogYr, tblFourYrPlan.fnkStudentId, pmkYear, pmkTerm FROM tblFourYrPlan, tblSemesterPlan, tblSemesterPlanCourses, tblCourses WHERE tblFourYrPlan.pmkPlanId = tblSemesterPlan.fnkPlanId AND tblSemesterPlan.pmkYear = tblSemesterPlanCourses.fnkYear AND tblSemesterPlan.pmkTerm = tblSemesterPlanCourses.fnkTerm AND tblSemesterPlanCourses.pmkPlanId = tblSemesterPlan.fnkPlanId AND tblCourses.pmkCourseId = tblSemesterPlanCourses.fnkCourseId ORDER BY tblSemesterPlan.fldDisplayOrder, tblSemesterPlanCourses.fldDisplayOrder';
+$columns = 4;
+    $query = 'SELECT pmkTerm, pmkYear, fldDepartment, fldCourseNumber FROM tblSemesterPlan, tblCourses, tblFourYrPlan, tblSemesterPlanCourses, tblStudents WHERE tblCourses.pmkCourseId = tblSemesterPlanCourses.fnkCourseId AND tblStudents.pmkStudentId = tblFourYrPlan.fnkStudentId AND tblFourYrPlan.pmkPlanId = tblSemesterPlan.fnkPlanId AND tblSemesterPlan.pmkYear = tblSemesterPlanCourses.fnkYear AND tblSemesterPlan.pmkTerm = tblSemesterPlanCourses.fnkTerm AND tblSemesterPlan.fnkPlanId = tblSemesterPlanCourses.fnkPlanId';
     $info2 = $thisDatabaseReader->select($query,  "", 1, 5, 0, 0, false, false);
 print '<br><h1>Total Records: ' . count($info2) . "</h1>";
     print '<br>';
@@ -18,7 +18,7 @@ print '<br><h1>Total Records: ' . count($info2) . "</h1>";
     
     
 print "<table>";
-print "<tr><th>Plan Id</th><th>Date Created</th><th>Catalog Year</th><th>Student Id</th><th>Year</th><th>Term</th></tr>";
+print "<tr><th>Term</th><th>Year</th><th>Department</th><th>Course Number</th></tr>";
 
     
 
