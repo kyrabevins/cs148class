@@ -19,6 +19,7 @@ print '<article>';
 print '<h2>Database: ' . DATABASE_NAME . '</h2>';
 ?>
 <br><p><a href="q01.php">Four Year Plans</a></p>
+<p><a href="form.php">Create a plan</a></p>
 <?php
 // print out a list of all the tables and their description
 // make each table name a link to display the record

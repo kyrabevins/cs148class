@@ -118,3 +118,30 @@ table{
                 background-color: whitesmoke;
             }
 
+            div .floatLeft{
+                float:left;
+                border: solid 2px black;
+            }
+            
+            section{
+                float:left;
+                border: 2px black solid;
+                margin: 10px;
+                width: 35%;
+            }
+            
+            .major{
+                background-color: lightgreen;
+                
+            }
+            
+            .minor{
+                background-color: yellow;
+            }
+            
+            .elective{
+                background-color: lightpink;
+                
+            }
+            
+        
