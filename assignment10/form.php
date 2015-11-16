@@ -1,14 +1,7 @@
 <?php
 include "top.php";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
-require_once('../bin/myDatabase.php');
-
-$dbUserName = get_current_user() . '_writer';
-$whichPass = "w"; //flag for which one to use.
-$dbName = strtoupper(get_current_user()) . '_advising';
-
-$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
-
+//
 // SECTION: 1 Initialize variables
 //
 // SECTION: 1a.
@@ -112,15 +105,6 @@ if (isset($_POST["btnSubmit"])) {
         // SECTION: 2e Save Data
         //
         // This block saves the data to a CSV file.
-        
-        
-//Build query
-$query  = "INSERT INTO tblAdvisors(fldFirstName,fldEmail)VALUES(?,?)";
-$plan = $thisDatabase->insert($sql, $dataRecord, 0, 0, 0, 0, false, false);
-        $planId = $thisDatabase->lastInsert();
-        
-        
-        
         $fileExt = ".csv";
         $myFileName = "data/registration";
         $filename = $myFileName . $fileExt;

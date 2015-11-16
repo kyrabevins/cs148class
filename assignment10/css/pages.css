@@ -1,0 +1,156 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 10, 2015, 3:16:56 PM
+    Author     : Kyra
+*/
+.pageTitle{
+    text-align: center;
+    text-decoration: underline;
+    font-size: 18pt;
+}
+
+.usersRevs {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 35px;
+}
+
+.usersRevs tr,td{
+    padding: 5px; 
+}
+
+.usersRevs tr:hover{
+    background-color: gold;
+}
+
+.usersSection{
+    width: 350px;
+    padding: 10px;
+    float: left;
+    margin: 15px;
+    
+}
+.user{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.usersSection a{
+    text-decoration: none;
+}
+.userHeading{
+    text-align: left;
+    padding-left: 42px;
+    font-size: 21pt;
+}
+.reviews{
+   border: 2px solid black;
+   border-radius: 15px 15px 15px 15px;
+   margin-bottom: 10px;
+   width: 65%;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 4px;
+   
+}
+
+.reviews:hover{
+    background-color: lightblue;
+}
+
+.reviews .title{
+    text-align: center;
+}
+
+.reviews .description{
+    text-align: center;
+    font-style: italic;
+    font-size: medium;
+    border: 1px solid black;
+    padding: 5px;
+    
+    border-radius: 15px 15px 15px 15px;
+}
+
+.genreSection{
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    padding-left: 2em;
+    margin-bottom: 15px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.genreInfo{
+    margin-left: 3em;
+    
+}
+
+table {
+    
+    width: 75%;
+    
+    
+}
+
+tr{
+    border: 1px solid black;
+}
+
+td{
+    border: 1px solid black;
+}
+
+aside{
+    border: 1px solid black;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 60%;
+    
+}
+
+
+#header{
+    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
+    border-bottom: solid 3px black;
+}
+
+#header h1,h2{
+    text-align: center;
+    
+}
+
+#header h1{
+    font-size: 20pt;
+    padding-top: 16px;
+    
+}
+
+nav li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 120px;
+    font-size: 14pt;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+#homeimage img{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding-left: 100px;
+}
+
+//reviews page
