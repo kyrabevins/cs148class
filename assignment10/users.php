@@ -8,6 +8,7 @@
 // This file is only for class purposes and should never be publicly live
 //##############################################################################
 include "top.php";
+$admin = true;
 
 $columns = 8;
     
@@ -21,7 +22,20 @@ $columns = 8;
    
    
    foreach($info2 as $rev){
-       if ($rev["pmkEmail"] != $user){
+       if ($admin) {
+           print '<aside class="users">';
+           print '<h3>Title: ' . '<a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/form.php?title=' . $rev["pmkTitle"] . '">' . '[Edit]' . $rev["fnkTitle"] . "</a><br>";
+           print '<h3>Author: ' . $rev["fnkAuthor"] . "<br>";
+           print '<h4>Date Finished: ' . $rev["fldDateFinished"] . '<br>';
+           print '<h4>Rating: ' . $rev["fldRating"] . ' stars<br>';
+           print '<p>"' . $rev["fldDescription"] . '"';
+           
+           print '</aside>';
+           
+       
+   }
+    
+       elseif ($rev["pmkEmail"] != $user){
            
            print '<h2>' . $rev["fldFirstName"] . " " . $rev["fldLastName"] . '</h2>';
            print '<aside class="users">';
@@ -34,9 +48,11 @@ $columns = 8;
            
           print '</aside>';
            
-           $user = $rev["pmkEmail"];
+          $user = $rev["pmkEmail"];
            
        }
+       
+          
        else{
            print '<aside class="users">';
            print '<h3>Title: ' . $rev["fnkTitle"] . "<br>";

@@ -5,13 +5,8 @@ include "top.php";
 // SECTION: 1 Initialize variables
 //
 // SECTION: 1a.
-// variables for the classroom purposes to help find errors.
-$debug = false;
-if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
-    $debug = true;
-}
-if ($debug)
-    print "<p>DEBUG MODE IS ON</p>";
+
+$update = false;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1b Security
@@ -24,8 +19,25 @@ $yourURL = $domain . $phpSelf;
 //
 // Initialize variables one for each form element
 // in the order they appear on the form
-$firstName = "";
-$email = "youremail@uvm.edu";
+if (isset($_GET["id"])) {
+    $pmkAdminNum = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
+
+    $query = 'SELECT * FROM tblAdministrators WHERE pmkAdminNum = ?';
+
+    $results = $thisDatabaseReader->select($query, "", 1, 0, 0, 0, false, false);
+
+    $pmkAdminId = $results[0]["pmkAdminId"];
+    $fldAge = $results[0]["fldAge"];
+    
+    foreach($results as $result){
+        print $res["pmkAdminId"];
+    }
+    
+} else {
+    $pmkAdminNum = -1;
+    $fldAge = "";
+    
+}
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1d form error flags

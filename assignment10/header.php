@@ -1,17 +1,22 @@
+
 <link rel="stylesheet" href="css/pages.css" type="text/css" media="screen">
 <section id="header">
-    <h1>bib·li·o·phile</h1>
-    <h2>Your own personal book log</h2>
+    <img src='images/book.png' alt='book logo' id='logo'>
+    <h1 class='mainTitle'>bibliophilia.</h1>
+    
 
 
 <nav>
     <ol>
-        <li><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/home.php">Home</a></li>
-        <li><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/reviews.php">All Reviews</a></li>
-        <li><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/form.php">Submit a Review</a></li>
-        <li><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/tables.php">Reviewers</a></li>
-        <li><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/ratings.php">Ratings</a></li>
-        <li><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/genres.php">Genres</a></li>
-    </ol>
+        
+      <li><a href="home.php">Home</a></li>
+        <li><a href="reviews.php">All Reviews</a></li>
+        <li><a href="form.php">Submit a Review</a></li>
+        <li><a href="tables.php">Reviewers</a></li>
+        <li><a href="ratings.php">Ratings</a></li>
+        <li><a href="genres.php">Genres</a></li>
+    
+               
+                </ol>
 </nav>
 </section>

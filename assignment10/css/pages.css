@@ -7,6 +7,91 @@ and open the template in the editor.
     Created on : Nov 10, 2015, 3:16:56 PM
     Author     : Kyra
 */
+*{
+ font-family: Century Gothic;   
+}
+
+#header h1{
+    
+    padding-top: 8px;
+    text-align: left;
+    margin-left: 30px;
+    
+}
+
+#header{
+    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
+    border-bottom: solid 3px black;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-size: 22pt;
+    font-family: Century Gothic;
+    font-style: italic;
+}
+#logo{
+    float: left;
+    width: 100px;
+    height: auto;
+}
+
+
+nav li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 80px;
+    font-size: 14pt;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 3px solid black;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+
+
+
+nav li a:link{
+    text-decoration: none;
+    color: black;
+}
+nav li a:visited{
+    color: black;
+}
+
+nav li a:hover{
+    color: white;
+}
+
+.activePage{
+    color: white;
+}
+
+.homepage{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
+    margin-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 15px;
+    border: solid 3px black;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.homepage h2{
+    text-align: center;
+}
+
+.homepage p{
+    text-align: center;
+    font-size: bold;
+    padding-top: 10px;
+}
+
+
+
+
 .pageTitle{
     text-align: center;
     text-decoration: underline;
@@ -60,7 +145,7 @@ and open the template in the editor.
 }
 
 .reviews:hover{
-    background-color: lightblue;
+    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
 }
 
 .reviews .title{
@@ -119,38 +204,7 @@ aside{
 }
 
 
-#header{
-    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
-    border-bottom: solid 3px black;
-}
 
-#header h1,h2{
-    text-align: center;
-    
-}
 
-#header h1{
-    font-size: 20pt;
-    padding-top: 16px;
-    
-}
-
-nav li{
-    list-style: none;
-    display: inline-block;
-    margin-left: 120px;
-    font-size: 14pt;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid black;
-    margin-bottom: 10px;
-}
-
-#homeimage img{
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    padding-left: 100px;
-}
 
 //reviews page
