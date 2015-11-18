@@ -110,7 +110,7 @@ nav li a:hover{
 }
 
 .usersRevs tr:hover{
-    background-color: gold;
+    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
 }
 
 .usersSection{

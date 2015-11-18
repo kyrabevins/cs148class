@@ -19,28 +19,28 @@ $columns = 3;
         }
     print '<h1>4 Stars: </h1>';
     foreach($info2 as $rev){
-        if($rev["rate"] <= 4.5 && $rev["rate"] >= 3.5){
+        if($rev["rate"] < 4.5 && $rev["rate"] >= 3.5){
              print '<p>' . $rev["fnkTitle"] . ', Average rating: ' . $rev["rate"] . '</p>';
              
     }}
     print '<h1>3 Stars: </h1>';
     foreach($info2 as $rev){
-        if($rev["rate"] <= 3.5 && $rev["rate"] >= 2.5){
-             print '<p>' . $rev["fnkTitle"] . '</p>';
+        if($rev["rate"] < 3.5 && $rev["rate"] >= 2.5){
+             print '<p>' . $rev["fnkTitle"] . ', Average rating: ' . $rev["rate"] . '</p>';
              
     }}
     
     print '<h1>2 Stars: </h1>';
     foreach($info2 as $rev){
-        if($rev["rate"] <= 2.5 && $rev["rate"] >= 1.5){
-             print '<p>' . $rev["fnkTitle"] . '</p>';
+        if($rev["rate"] < 2.5 && $rev["rate"] >= 1.5){
+             print '<p>' . $rev["fnkTitle"] . ', Average rating: ' . $rev["rate"] . '</p>';
              
     }}
         
     print '<h1>1 Star: </h1>';
     foreach($info2 as $rev){
-        if($rev["rate"] <= 1.5 && $rev["rate"] >= 0){
-             print '<p>' . $rev["fnkTitle"] . '</p>';
+        if($rev["rate"] < 1.5 && $rev["rate"] >= 0){
+             print '<p>' . $rev["fnkTitle"] . ', Average rating: ' . $rev["rate"] . '</p>';
              
     }}
         
