@@ -18,11 +18,11 @@ if (isset($_GET['title'])) {
     $query = 'SELECT * FROM tblUsersBooks WHERE fnkTitle="' . $newTitle . '"';
     $results = $thisDatabaseReader->select($query, "", 1, 1, 2, 0, false, false);
    
-   
-    print '<table>';
+    print '<h2 class="pageTitle">All Reviews of ' . $newTitle . '</h2>';
+    print '<table class="genrerevs">';
     foreach($results as $res){
         
-        print '<tr>';
+        print '<tr class="genreRev">';
         print '<td>Reviewed by: ' . $res["fnkEmail"] . '</td>';
         print '<td>Rating: ' . $res["fldRating"] . ' out of 5 stars</td>';
         print '<td>Review: "' . $res["fldDescription"] . '"</td>';
