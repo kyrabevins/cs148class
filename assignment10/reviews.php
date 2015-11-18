@@ -18,7 +18,7 @@ $columns = 6;
         if($admin){
         print '<section class="reviews">';
         
-        print '<h3 class="title">Title: ' . '<a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/form.php?title=' . $rev["fnkTitle"] . '">' .  $rev["fnkTitle"] . '   [Edit]' . "</a><br>";
+        print '<h3 class="title">Title: ' . '<a href="https://kbevins.w3.uvm.edu/cs148/assignment10/form.php?title=' . $rev["fnkTitle"] . '">' .  $rev["fnkTitle"] . '   [Edit]' . "</a><br>";
         print '<p><b>Reviewer: </b>' . $rev["fldFirstName"] . " " . $rev["fldLastName"] . '</p>';
         print '<p><b>Rating: </b>' . $rev["fldRating"] . ' stars</p>';
        

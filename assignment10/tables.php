@@ -18,8 +18,8 @@ $columns =4;
     
     foreach($users as $user){
         print '<section class="usersSection">';
-        print '<a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/test.php?id=' . $user["pmkEmail"] . '"><img src="https://kbevins.w3.uvm.edu/cs148develop/assignment10/images/user.png" alt="user" class="user"></a>';
-        print '<h2 class="userHeading"><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/test.php?id=' . $user["pmkEmail"] . '">'  . $user["fldFirstName"] . " " . $user["fldLastName"] . '</a></h2>';
+        print '<a href="https://kbevins.w3.uvm.edu/cs148/assignment10/test.php?id=' . $user["pmkEmail"] . '"><img src="https://kbevins.w3.uvm.edu/cs148/assignment10/images/user.png" alt="user" class="user"></a>';
+        print '<h2 class="userHeading"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/test.php?id=' . $user["pmkEmail"] . '">'  . $user["fldFirstName"] . " " . $user["fldLastName"] . '</a></h2>';
         print '</section>';
         
     }

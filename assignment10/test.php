@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 }
 print '</table>';
 
-print '<p><a href="https://kbevins.w3.uvm.edu/cs148develop/assignment10/tables.php">Back to Users</a></p>';
+print '<p><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/tables.php">Back to Users</a></p>';
     
     
 }
