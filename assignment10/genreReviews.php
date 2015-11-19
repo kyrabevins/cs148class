@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     $bookId = $_GET['id'];
     //$newTitle = str_replace("Q", " ", $bookTitle);
     
-    print $bookId;
+    
     
     
     $columns = 5;
