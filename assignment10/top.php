@@ -20,7 +20,7 @@ include "header.php";
         
 
         <?php
-        $debug = false;
+        
         // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
         //
         // inlcude all libraries. Note some are in lib and some are in bin
@@ -39,6 +39,7 @@ include "header.php";
         
         require_once($includeLibPath . 'mailMessage.php');
         require_once('lib/security.php');
+        require_once('lib/validation-functions.php');
         
         require_once($includeDBPath . 'Database.php');
         

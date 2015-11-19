@@ -7,23 +7,23 @@
  */
 include "top.php";
 
-if (isset($_GET['title'])) {
-    $bookTitle = $_GET['title'];
-    $newTitle = str_replace("Q", " ", $bookTitle);
+if (isset($_GET['id'])) {
+    $bookId = $_GET['id'];
+    //$newTitle = str_replace("Q", " ", $bookTitle);
+    
+    print $bookId;
     
     
-    
-    
-    $columns = 7;
-    $query = 'SELECT * FROM tblUsersBooks WHERE fnkTitle="' . $newTitle . '"';
-    $results = $thisDatabaseReader->select($query, "", 1, 1, 2, 0, false, false);
+    $columns = 5;
+    $query = 'SELECT fldFirstName, fldLastName, fldRating, fldDescription, fldTitle FROM tblUsersBooks, tblBooks, tblUsers WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND tblUsersBooks.fnkEmail=tblUsers.pmkEmail AND pmkBookId="' . $bookId . '"';
+    $results = $thisDatabaseReader->select($query, "", 1, 2, 2, 0, false, false);
    
-    print '<h2 class="pageTitle">All Reviews of ' . $newTitle . '</h2>';
+    
     print '<table class="genrerevs">';
     foreach($results as $res){
         
         print '<tr class="genreRev">';
-        print '<td>Reviewed by: ' . $res["fnkEmail"] . '</td>';
+        print '<td>Reviewed by: ' . $res["fldFirstName"] . " " . $res["fldLastName"] . '</td>';
         print '<td>Rating: ' . $res["fldRating"] . ' out of 5 stars</td>';
         print '<td>Review: "' . $res["fldDescription"] . '"</td>';
         print '</tr>';

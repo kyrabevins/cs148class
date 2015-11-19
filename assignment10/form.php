@@ -26,29 +26,29 @@ $yourURL = $domain . $phpSelf;
 // Initialize variables one for each form element
 // in the order they appear on the form
 
-if (isset($_GET["title"])) {
-    
-    $bookTitle = $_GET['title'];
-    $pmkTitle = str_replace("Q", " ", $bookTitle);
-    $updateTrue = 1;
-    
-
-    $query = 'SELECT pmkTitle, pmkAuthor,fldGenre ';
-    $query .= 'FROM tblBooks WHERE pmkTitle = ?';
-
-    $results = $thisDatabase->select($query, array($pmkTitle), 1, 0, 0, 0, false, false);
-    
-    
-
-    $pmkBookTitle = $results[0]["pmkTitle"];
-    $pmkAuthor = $results[0]["pmkAuthor"];
-    $fldGenre = $results[0]["fldGenre"];
-} else {
-    $updateTrue = -1;
-    $pmkBookTitle = "";
-    $pmkAuthor = "";
-    $fldGenre = "";
-}
+//if (isset($_GET["title"])) {
+//    
+//    $bookTitle = $_GET['title'];
+//    $pmkTitle = str_replace("Q", " ", $bookTitle);
+//    $updateTrue = 1;
+//    
+//
+//    $query = 'SELECT pmkTitle, pmkAuthor,fldGenre ';
+//    $query .= 'FROM tblBooks WHERE pmkTitle = ?';
+//
+//    $results = $thisDatabase->select($query, array($pmkTitle), 1, 0, 0, 0, false, false);
+//    
+//    
+//
+//    $pmkBookTitle = $results[0]["pmkTitle"];
+//    $pmkAuthor = $results[0]["pmkAuthor"];
+//    $fldGenre = $results[0]["fldGenre"];
+//} else {
+//    $updateTrue = -1;
+//    $pmkBookTitle = "";
+//    $pmkAuthor = "";
+//    $fldGenre = "";
+//}
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -56,8 +56,8 @@ if (isset($_GET["title"])) {
 //
 // Initialize Error Flags one for each form element we validate
 // in the order they appear in section 1c.
-$pmkBookTitleERROR = false;
-$pmkAuthorERROR = false;
+$fldTitleERROR = false;
+$fldAuthorERROR = false;
 $fldGenreERROR = false;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -83,6 +83,7 @@ if (isset($_POST["btnSubmit"])) {
       die($msg);
       }
      */
+   
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
 // SECTION: 2b Sanitize (clean) data
@@ -94,11 +95,11 @@ if (isset($_POST["btnSubmit"])) {
     }
     // I am not putting the ID in the $data array at this time
 
-    $pmkBookTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
-    $data[] = $pmkBookTitle;
+    $fldTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
+    $data[] = $fldTitle;
 
-    $pmkAuthor = htmlentities($_POST["txtAuthor"], ENT_QUOTES, "UTF-8");
-    $data[] = $pmkAuthor;
+    $fldAuthor = htmlentities($_POST["txtAuthor"], ENT_QUOTES, "UTF-8");
+    $data[] = $fldAuthor;
 
     $fldGenre = htmlentities($_POST["txtGenre"], ENT_QUOTES, "UTF-8");
     $data[] = $fldGenre;
@@ -108,20 +109,20 @@ if (isset($_POST["btnSubmit"])) {
 // SECTION: 2c Validation
 //
 
-    if ($pmkBookTitle == "") {
+    if ($fldTitle == "") {
         $errorMsg[] = "Please enter the title of the book";
-        $pmkBookTitleERROR = true;
-    } elseif (!verifyAlphaNum($firstName)) {
+        $fldTitleERROR = true;
+    } elseif (!verifyAlphaNum($fldTitle)) {
         $errorMsg[] = "Your title appears to have extra character.";
-        $pmkBookTitleERROR = true;
+        $fldTitleERROR = true;
     }
 
-    if ($pmkAuthor == "") {
+    if ($fldAuthor == "") {
         $errorMsg[] = "Please enter the author";
-        $pmkAuthorERROR = true;
-    } elseif (!verifyAlphaNum($pmkAuthor)) {
+        $fldAuthorERROR = true;
+    } elseif (!verifyAlphaNum($fldAuthor)) {
         $errorMsg[] = "Your author appears to have extra character.";
-        $pmkAuthorERROR = true;
+        $fldAuthorERROR = true;
     }
 
     if ($fldGenre == "") {
@@ -134,7 +135,9 @@ if (isset($_POST["btnSubmit"])) {
 //
 // Process for when the form passes validation (the errorMsg array is empty)
 //
+    print_r($errorMsg);
     if (!$errorMsg) {
+        
         if ($debug) {
             print "<p>Form is valid</p>";
         }
@@ -146,7 +149,7 @@ if (isset($_POST["btnSubmit"])) {
 
         $dataEntered = false;
         try {
-            $thisDatabase->db->beginTransaction();
+            $thisDatabaseWriter->db->beginTransaction();
 
             if ($update) {
                 $query = 'UPDATE tblBooks SET ';
@@ -154,21 +157,21 @@ if (isset($_POST["btnSubmit"])) {
                 $query = 'INSERT INTO tblBooks SET ';
             }
 
-            $query .= 'pmkTitle = ?, ';
-            $query .= 'pmkAuthor = ?, ';
+            $query .= 'fldTitle = ?, ';
+            $query .= 'fldAuthor = ?, ';
             $query .= 'fldGenre = ? ';
-
+print $query;
             if ($update) {
-                $query .= 'WHERE pmkTitle = ?';
-                $data[] = $pmkTitle;
+                $query .= 'WHERE fldTitle = ?';
+                $data[] = $fldTitle;
 
                 if ($_SERVER["REMOTE_USER"] == 'kbevins') {
-                    $results = $thisDatabase->update($query, $data, 1, 0, 0, 0, false, false);
+                    $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
                 }
             } else {
                 if ($_SERVER["REMOTE_USER"] == 'kbevins'){
-                    $results = $thisDatabase->insert($query, $data);
-                    $primaryKey = $thisDatabase->lastInsert();
+                    $results = $thisDatabaseWriter->insert($query, $data);
+                    //$primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
                     }
@@ -177,14 +180,14 @@ if (isset($_POST["btnSubmit"])) {
 
             // all sql statements are done so lets commit to our changes
             //if($_SERVER["REMOTE_USER"]=='rerickso'){
-            $dataEntered = $thisDatabase->db->commit();
+            $dataEntered = $thisDatabaseWriter->db->commit();
             // }else{
             //     $thisDatabase->db->rollback();
             // }
             if ($debug)
                 print "<p>transaction complete ";
         } catch (PDOExecption $e) {
-            $thisDatabase->db->rollback();
+            $thisDatabaseWriter->db->rollback();
             if ($debug)
                 print "Error!: " . $e->getMessage() . "</br>";
             $errorMsg[] = "There was a problem with accpeting your data please contact us directly.";
@@ -252,18 +255,18 @@ if (isset($_POST["btnSubmit"])) {
 
                 <label for="txtBookTitle" class="required">Book Title
                     <input type="text" id="txtBookTitle" name="txtBookTitle"
-                           value="<?php print $pmkBookTitle; ?>"
+                           value="<?php print $fldTitle; ?>"
                            tabindex="100" maxlength="45" placeholder="Enter the book title"
-    <?php if ($pmkBookTitleERROR) print 'class="mistake"'; ?>
+    <?php if ($fldTitleERROR) print 'class="mistake"'; ?>
                            onfocus="this.select()"
                            autofocus>
                 </label>
 
                 <label for="txtAuthor" class="required">Author
                     <input type="text" id="txtAuthor" name="txtAuthor"
-                           value="<?php print $pmkAuthor; ?>"
+                           value="<?php print $fldAuthor; ?>"
                            tabindex="100" maxlength="45" placeholder="Enter the author"
-    <?php if ($pmkAuthorERROR) print 'class="mistake"'; ?>
+    <?php if ($fldAuthorERROR) print 'class="mistake"'; ?>
                            onfocus="this.select()"
                            >
                 </label>

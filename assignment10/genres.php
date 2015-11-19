@@ -2,8 +2,8 @@
 <?php
 include "top.php";
 
-$columns = 3;
-    $query = 'SELECT * FROM tblBooks';
+$columns = 4;
+    $query = 'SELECT fldTitle, fldAuthor, fldGenre, pmkBookId FROM tblBooks';
     $info2 = $thisDatabaseReader->select($query,  "", 0, 0, 0, 0, false, false);
     print '<h1 class=pageTitle>Books by Genre</h1>';
     
@@ -23,7 +23,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Classic"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?id=' . $rev["pmkBookId"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $classic += 1;
         }
         
@@ -36,7 +36,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Fantasy"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $fantasy += 1;
         }
         
@@ -48,7 +48,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Fiction"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $fiction += 1;
         }
         
@@ -62,7 +62,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Horror"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $horror += 1;
         }
         
@@ -76,7 +76,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Humor"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $humor += 1;
         }
         
@@ -91,7 +91,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Mystery"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $mystery += 1;
         }
         
@@ -105,7 +105,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Nonfiction"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $nonfiction += 1;
         }
        
@@ -119,7 +119,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Romance"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $romance += 1;
         }
         
@@ -133,7 +133,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Science Fiction"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $scifi += 1;
         }
        
@@ -147,7 +147,7 @@ $columns = 3;
     foreach($info2 as $rev){
         
         if($rev["fldGenre"] == "Other"){
-             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["pmkTitle"] . '">' . $rev["pmkTitle"] . ', Author: ' . $rev["pmkAuthor"] . '</a></p>';
+             print '<p class="genreInfo"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genreReviews.php?title=' . $rev["fldTitle"] . '">' . $rev["fldTitle"] . ', Author: ' . $rev["fldAuthor"] . '</a></p>';
              $other += 1;
         }
         

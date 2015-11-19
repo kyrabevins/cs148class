@@ -10,14 +10,14 @@ include "top.php";
 if (isset($_GET['id'])) {
     $userId = $_GET['id'];
     $columns = 7;
-    $query = 'SELECT * FROM tblUsersBooks WHERE fnkEmail="' . $userId . '"';
-    $results = $thisDatabaseReader->select($query, "", 1, 0, 2, 0, false, false);
+    $query = 'SELECT * FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND fnkEmail="' . $userId . '"';
+    $results = $thisDatabaseReader->select($query, "", 1, 1, 2, 0, false, false);
     print '<table class="usersRevs">';
     
     foreach($results as $res){
         print '<tr>';
-        print '<td>' . $res["fnkTitle"] . '</td>';
-        print '<td>' . $res["fnkAuthor"] . '</td>';
+        print '<td>' . $res["fldTitle"] . '</td>';
+        print '<td>' . $res["fldAuthor"] . '</td>';
         print '<td>' . $res["fldDateFinished"] . '</td>';
         print '<td>' . $res["fldRating"] . ' stars</td>';
         print '<td>' . $res["fldDescription"] . '</td>';
