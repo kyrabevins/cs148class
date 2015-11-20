@@ -191,14 +191,14 @@ if (isset($_POST["btnSubmit"])) {
             }
 
             // all sql statements are done so lets commit to our changes
-            //if($_SERVER["REMOTE_USER"]=='rerickso'){
-            $dataEntered = $thisDatabaseWriter->db->commit();
-            // }else{
-            //     $thisDatabase->db->rollback();
-            // }
+            if($_SERVER["REMOTE_USER"]=='kbevins'){
+            $dataEntered = $thisDatabaseWriter->db->commit();}
+            else{
+                 $thisDatabase->db->rollback();
+            }
             if ($debug)
                 print "<p>transaction complete ";
-        } catch (PDOExecption $e) {
+        } catch (PDOException $e) {
             $thisDatabaseWriter->db->rollback();
             if ($debug)
                 print "Error!: " . $e->getMessage() . "</br>";
