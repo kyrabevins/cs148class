@@ -192,10 +192,10 @@ if (isset($_POST["btnSubmit"])) {
 
             // all sql statements are done so lets commit to our changes
             //if($_SERVER["REMOTE_USER"]=='kbevins'){
-            //$dataEntered = $thisDatabaseWriter->db->commit();}
+            $dataEntered = $thisDatabaseWriter->db->commit();
             //else{
                //  $thisDatabaseWriter->db->rollback();
-            //}
+            
             if ($debug)
                 print "<p>transaction complete ";
         } catch (PDOEcxeption $e) {
