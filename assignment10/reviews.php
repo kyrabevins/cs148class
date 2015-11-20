@@ -11,12 +11,12 @@ $columns = 8;
     
     
 
-    $username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
+    
 
     
     foreach ($info2 as $rev) {
         
-        if($username == "kbevins"){
+        
         print '<section class="reviews">';
         
         print '<h3 class="title">Title: ' . '<a href="https://kbevins.w3.uvm.edu/cs148/assignment10/form.php?id=' . $rev["pmkReviewId"] . '">' .  $rev["fldTitle"] . '   [Edit]' . "</a><br>";
@@ -26,19 +26,9 @@ $columns = 8;
         print '<p class="description">"' . $rev["fldDescription"] . '"</p>';
         
         print '</section>';
-        }
+       //}
         
-        else{
-        print '<section class="reviews">';
         
-        print '<h3 class="title">' . $rev["fldTitle"] . "</h3><b> Author: </b>" . $rev["fldAuthor"] . '</p>';
-        print '<p><b>Reviewer: </b>' . $rev["fldFirstName"] . " " . $rev["fldLastName"] . '</p>';
-        print '<p><b>Rating: </b>' . $rev["fldRating"] . ' stars</p>';
-       
-        print '<p class="description">"' . $rev["fldDescription"] . '"</p>';
-        
-        print '</section>';
-        }
         
     }
     
