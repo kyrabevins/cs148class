@@ -194,7 +194,7 @@ if (isset($_POST["btnSubmit"])) {
             if($_SERVER["REMOTE_USER"]=='kbevins'){
             $dataEntered = $thisDatabaseWriter->db->commit();}
             else{
-                 $thisDatabase->db->rollback();
+                 $thisDatabaseWriter->db->rollback();
             }
             if ($debug)
                 print "<p>transaction complete ";
