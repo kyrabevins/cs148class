@@ -46,7 +46,7 @@ if (isset($_GET["id"])) {
     $fldAuthor = "";
     $fldGenre = "";
 }
-
+print $pmkBookId;
 
     
 
@@ -97,7 +97,6 @@ if (isset($_POST["btnSubmit"])) {
     
     
     
-    
     // I am not putting the ID in the $data array at this time
 
     $fldTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
@@ -108,6 +107,8 @@ if (isset($_POST["btnSubmit"])) {
 
     $fldGenre = htmlentities($_POST["txtGenre"], ENT_QUOTES, "UTF-8");
     $data[] = $fldGenre;
+    
+    
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
@@ -151,14 +152,17 @@ if (isset($_POST["btnSubmit"])) {
 //
 // SECTION: 2e Save Data
 //
+     
 
         $dataEntered = false;
         try {
             $thisDatabaseWriter->db->beginTransaction();
-
+   
+    
             if ($update) {
                 $query = 'UPDATE tblBooks SET ';
-            } else {
+            } 
+            else {
                 $query = 'INSERT INTO tblBooks SET ';
             }
 
@@ -168,10 +172,10 @@ if (isset($_POST["btnSubmit"])) {
 
             if ($update) {
                 $query .= 'WHERE pmkBookId = ?';
-                print $query;
+               
                 
                 $data[] = $pmkBookId;
-                print $data;
+                
 
                 if ($_SERVER["REMOTE_USER"] == 'kbevins') {
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
@@ -179,7 +183,7 @@ if (isset($_POST["btnSubmit"])) {
             } else {
                 if ($_SERVER["REMOTE_USER"] == 'kbevins'){
                     $results = $thisDatabaseWriter->insert($query, $data);
-                    $primaryKey = $thisDatabaseWriter->lastInsert();
+                    //$primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
                     }
