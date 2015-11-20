@@ -31,22 +31,29 @@ if (isset($_GET["id"])) {
     $pmkBookId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
     
     
-    $query = 'SELECT pmkBookId, fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkReviewId = ?';
-    $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 1, 0, 0, false, false);
+    $query = 'SELECT pmkBookId, fldTitle, fldAuthor, fldGenre,fldFirstName,fldLastName, pmkEmail FROM tblUsersBooks, tblBooks, tblUsers WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND tblUsersBooks.fnkEmail=tblUsers.pmkEmail AND pmkReviewId = ?';
+    $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 2, 0, 0, false, false);
+    $pmkEmail = $results[0]["pmkEmail"];
+    $fldFirstName = $results[0]["fldFirstName"];
+    $fldLastName = $results[0]["fldLastName"];
     $fldTitle = $results[0]["fldTitle"];
     $fldAuthor = $results[0]["fldAuthor"];
     $fldGenre = $results[0]["fldGenre"];
+   
     
-    
+   
     } 
     
     else {
     $pmkBookId = -1;
+    $pmkEmail = "";
+    $fldFirstName = "";
+    $fldLastName = "";
     $fldTitle = "";
     $fldAuthor = "";
     $fldGenre = "";
 }
-print $pmkBookId;
+
 
     
 
@@ -57,6 +64,9 @@ print $pmkBookId;
 //
 // Initialize Error Flags one for each form element we validate
 // in the order they appear in section 1c.
+$pmkEmailERROR = false;
+$fldFirstNameERROR = false;
+$fldLastNameERROR = false;
 $fldTitleERROR = false;
 $fldAuthorERROR = false;
 $fldGenreERROR = false;
@@ -67,6 +77,7 @@ $fldGenreERROR = false;
 // create array to hold error messages filled (if any) in 2d displayed in 3c.
 $errorMsg = array();
 $data = array();
+$data2 = array();
 $dataEntered = false;
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -98,7 +109,15 @@ if (isset($_POST["btnSubmit"])) {
     
     
     // I am not putting the ID in the $data array at this time
-
+    $pmkEmail = htmlentities($_POST["txtEmail"], ENT_QUOTES, "UTF-8");
+    $data2[] = $pmkEmail;
+    
+    $fldFirstName = htmlentities($_POST["txtFirstName"], ENT_QUOTES, "UTF-8");
+    $data2[] = $fldFirstName;
+    
+    $fldLastName = htmlentities($_POST["txtLastName"], ENT_QUOTES, "UTF-8");
+    $data2[] = $fldLastName;
+    
     $fldTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
     $data[] = $fldTitle;
 
@@ -114,7 +133,29 @@ if (isset($_POST["btnSubmit"])) {
 //
 // SECTION: 2c Validation
 //
-
+    if ($pmkEmail == "") {
+        $errorMsg[] = "Please enter the title of the book";
+        $pmkEmailERROR = true;
+    
+    }
+    
+    if ($fldFirstName == "") {
+        $errorMsg[] = "Please enter your first name";
+        $fldFirstNameERROR = true;
+    } elseif (!verifyAlphaNum($fldFirstName)) {
+        $errorMsg[] = "Your first name appears to have extra character.";
+        $fldFirstNameERROR = true;
+    }
+    
+     if ($fldLastName == "") {
+        $errorMsg[] = "Please enter your last name";
+        $fldLastNameERROR = true;
+    } elseif (!verifyAlphaNum($fldLastName)) {
+        $errorMsg[] = "Your last name appears to have extra character.";
+        $fldLastNameERROR = true;
+    }
+    
+    
     if ($fldTitle == "") {
         $errorMsg[] = "Please enter the title of the book";
         $fldTitleERROR = true;
@@ -161,17 +202,23 @@ if (isset($_POST["btnSubmit"])) {
     
             if ($update) {
                 $query = 'UPDATE tblBooks SET ';
+                //$query2 = 'UPDATE tblUsers SET ';
             } 
             else {
                 $query = 'INSERT INTO tblBooks SET ';
+                $query2 = 'INSERT INTO tblUsers SET ';
             }
 
             $query .= 'fldTitle = ?, ';
             $query .= 'fldAuthor = ?, ';
             $query .= 'fldGenre = ? ';
+            $query2 .= 'pmkEmail = ?, ';
+            $query2 .= 'fldFirstName = ?, ';
+            $query2 .= 'fldLastName = ? ';
 
             if ($update) {
                 $query .= 'WHERE pmkBookId = ?';
+                
                
                 
                 $data[] = $pmkBookId;
@@ -183,6 +230,7 @@ if (isset($_POST["btnSubmit"])) {
             } else {
                 if ($_SERVER["REMOTE_USER"] == 'kbevins'){
                     $results = $thisDatabaseWriter->insert($query, $data);
+                    $results = $thisDatabaseWriter->insert($query2, $data2);
                     $primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
@@ -261,13 +309,43 @@ if (isset($_POST["btnSubmit"])) {
               method="post"
               id="frmRegister">
             <fieldset class="wrapper">
-                <legend>Book entry</legend>
+                <legend>Add/Update Book Review</legend>
                 
                  <input type="hidden" id="hidBookId" name="hidBookId"
                        value="<?php print $pmkBookId; ?>"
 
                 >
-
+                 <fieldset class="wrapper">
+                     <legend>User Information</legend>
+                 <label for="txtEmail" class="required">User Email
+                    <input type="text" id="txtEmail" name="txtEmail"
+                           value="<?php print $pmkEmail; ?>"
+                           tabindex="100" maxlength="45" placeholder="Enter your user email"
+    <?php if ($pmkEmailERROR) print 'class="mistake"'; ?>
+                           onfocus="this.select()"
+                           autofocus>
+                </label>
+                 
+                 <label for="txtFirstName" class="required">First Name
+                    <input type="text" id="txtFirstName" name="txtFirstName"
+                           value="<?php print $fldFirstName; ?>"
+                           tabindex="100" maxlength="45" placeholder="Enter your first name"
+    <?php if ($fldFirstNameERROR) print 'class="mistake"'; ?>
+                           onfocus="this.select()"
+                           autofocus>
+                </label>
+                 
+                 <label for="txtLastName" class="required">Last Name
+                    <input type="text" id="txtLastName" name="txtLastName"
+                           value="<?php print $fldLastName; ?>"
+                           tabindex="100" maxlength="45" placeholder="Enter your last name"
+    <?php if ($fldLastNameERROR) print 'class="mistake"'; ?>
+                           onfocus="this.select()"
+                           autofocus>
+                </label>
+                 </fieldset>
+                 <fieldset class="wrapper">
+                     <legend>Book Information</legend>
                 <label for="txtBookTitle" class="required">Book Title
                     <input type="text" id="txtBookTitle" name="txtBookTitle"
                            value="<?php print $fldTitle; ?>"
@@ -294,6 +372,7 @@ if (isset($_POST["btnSubmit"])) {
                            onfocus="this.select()"
                            >
                 </label>                
+                 </fieldset>
             </fieldset> <!-- ends contact -->
             </fieldset> <!-- ends wrapper Two -->
             <fieldset class="buttons">
