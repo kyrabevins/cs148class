@@ -183,7 +183,7 @@ if (isset($_POST["btnSubmit"])) {
             } else {
                 if ($_SERVER["REMOTE_USER"] == 'kbevins'){
                     $results = $thisDatabaseWriter->insert($query, $data);
-                    //$primaryKey = $thisDatabaseWriter->lastInsert();
+                    $primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
                     }
