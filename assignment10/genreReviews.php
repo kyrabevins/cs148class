@@ -30,6 +30,8 @@ if (isset($_GET['id'])) {
         
 }
 print '</table>';
+print '<p><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genres.php">Back to Genres</a></p>';
     
     
 }
+

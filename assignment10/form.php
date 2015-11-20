@@ -26,29 +26,17 @@ $yourURL = $domain . $phpSelf;
 // Initialize variables one for each form element
 // in the order they appear on the form
 
-//if (isset($_GET["title"])) {
-//    
-//    $bookTitle = $_GET['title'];
-//    $pmkTitle = str_replace("Q", " ", $bookTitle);
-//    $updateTrue = 1;
-//    
 //
-//    $query = 'SELECT pmkTitle, pmkAuthor,fldGenre ';
-//    $query .= 'FROM tblBooks WHERE pmkTitle = ?';
-//
-//    $results = $thisDatabase->select($query, array($pmkTitle), 1, 0, 0, 0, false, false);
-//    
-//    
-//
-//    $pmkBookTitle = $results[0]["pmkTitle"];
-//    $pmkAuthor = $results[0]["pmkAuthor"];
-//    $fldGenre = $results[0]["fldGenre"];
-//} else {
-//    $updateTrue = -1;
-//    $pmkBookTitle = "";
-//    $pmkAuthor = "";
-//    $fldGenre = "";
-//}
+if (isset($_GET["id"]) and isset($_GET["user"])) {
+    $pmkBookId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
+    $pmkEmail = htmlentities($_GET["user"], ENT_QUOTES, "UTF-8");
+    
+    $query = 'SELECT fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkBookId = ? AND fnkEmail = ?';
+    $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 2, 0, 0, false, false);
+    
+    
+    }
+
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
