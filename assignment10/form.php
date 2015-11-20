@@ -27,15 +27,25 @@ $yourURL = $domain . $phpSelf;
 // in the order they appear on the form
 
 //
-if (isset($_GET["id"]) and isset($_GET["user"])) {
-    $pmkBookId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
-    $pmkEmail = htmlentities($_GET["user"], ENT_QUOTES, "UTF-8");
-    
-    $query = 'SELECT fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkBookId = ? AND fnkEmail = ?';
-    $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 2, 0, 0, false, false);
+if (isset($_GET["id"])) {
+    $pmkReviewId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
     
     
-    }
+    $query = 'SELECT fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkReviewId = ?';
+    $results = $thisDatabaseReader->select($query, array($pmkReviewId), 1, 1, 0, 0, false, false);
+    $fldTitle = $results[0]["fldTitle"];
+    $fldAuthor = $results[0]["fldAuthor"];
+    $fldGenre = $results[0]["fldGenre"];
+    
+    } 
+    
+    else {
+    $pmkReviewId = -1;
+    $fldTitle = "";
+    $fldAuthor = "";
+    $fldGenre = "";
+}
+    
 
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
