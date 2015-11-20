@@ -87,10 +87,14 @@ if (isset($_POST["btnSubmit"])) {
 // SECTION: 2b Sanitize (clean) data
 // remove any potential JavaScript or html code from users input on the
 // form. Note it is best to follow the same order as declared in section 1c.
-   
-    if ($updateTrue > 0) {
+   $pmkReviewId = (int) htmlentities($_POST["hidReviewId"], ENT_QUOTES, "UTF-8");
+    if ($pmkReviewId > 0) {
         $update = true;
     }
+    
+    
+    
+    
     // I am not putting the ID in the $data array at this time
 
     $fldTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
@@ -133,7 +137,7 @@ if (isset($_POST["btnSubmit"])) {
 //
 // Process for when the form passes validation (the errorMsg array is empty)
 //
-    print_r($errorMsg);
+    
     if (!$errorMsg) {
         
         if ($debug) {
@@ -158,10 +162,10 @@ if (isset($_POST["btnSubmit"])) {
             $query .= 'fldTitle = ?, ';
             $query .= 'fldAuthor = ?, ';
             $query .= 'fldGenre = ? ';
-print $query;
+
             if ($update) {
-                $query .= 'WHERE fldTitle = ?';
-                $data[] = $fldTitle;
+                $query .= 'WHERE pmkReviewId = ?';
+                $data[] = $pmkReviewId;
 
                 if ($_SERVER["REMOTE_USER"] == 'kbevins') {
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
@@ -169,7 +173,7 @@ print $query;
             } else {
                 if ($_SERVER["REMOTE_USER"] == 'kbevins'){
                     $results = $thisDatabaseWriter->insert($query, $data);
-                    //$primaryKey = $thisDatabaseWriter->lastInsert();
+                    $primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
                     }
@@ -248,8 +252,11 @@ print $query;
               id="frmRegister">
             <fieldset class="wrapper">
                 <legend>Book entry</legend>
-
                 
+                 <input type="hidden" id="hidReviewId" name="hidReviewId"
+                       value="<?php print $pmkReviewId; ?>"
+
+                >
 
                 <label for="txtBookTitle" class="required">Book Title
                     <input type="text" id="txtBookTitle" name="txtBookTitle"
