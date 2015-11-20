@@ -28,20 +28,20 @@ $yourURL = $domain . $phpSelf;
 
 //
 if (isset($_GET["id"])) {
-    $pmkReviewId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
+    $pmkBookId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
     
     
     $query = 'SELECT pmkBookId, fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkReviewId = ?';
-    $results = $thisDatabaseReader->select($query, array($pmkReviewId), 1, 1, 0, 0, false, false);
+    $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 1, 0, 0, false, false);
     $fldTitle = $results[0]["fldTitle"];
     $fldAuthor = $results[0]["fldAuthor"];
     $fldGenre = $results[0]["fldGenre"];
-    $pmkBookId = $results[0]["pmkBookId"];
+    
     
     } 
     
     else {
-    $pmkReviewId = -1;
+    $pmkBookId = -1;
     $fldTitle = "";
     $fldAuthor = "";
     $fldGenre = "";
@@ -90,8 +90,8 @@ if (isset($_POST["btnSubmit"])) {
 // SECTION: 2b Sanitize (clean) data
 // remove any potential JavaScript or html code from users input on the
 // form. Note it is best to follow the same order as declared in section 1c.
-   $pmkReviewId = (int) htmlentities($_POST["hidReviewId"], ENT_QUOTES, "UTF-8");
-    if ($pmkReviewId > 0) {
+   $pmkBookId = (int) htmlentities($_POST["hidBookId"], ENT_QUOTES, "UTF-8");
+    if ($pmkBookId > 0) {
         $update = true;
     }
     
@@ -168,7 +168,10 @@ if (isset($_POST["btnSubmit"])) {
 
             if ($update) {
                 $query .= 'WHERE pmkBookId = ?';
+                print $query;
+                
                 $data[] = $pmkBookId;
+                print $data;
 
                 if ($_SERVER["REMOTE_USER"] == 'kbevins') {
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
@@ -256,8 +259,8 @@ if (isset($_POST["btnSubmit"])) {
             <fieldset class="wrapper">
                 <legend>Book entry</legend>
                 
-                 <input type="hidden" id="hidReviewId" name="hidReviewId"
-                       value="<?php print $pmkReviewId; ?>"
+                 <input type="hidden" id="hidBookId" name="hidBookId"
+                       value="<?php print $pmkBookId; ?>"
 
                 >
 
