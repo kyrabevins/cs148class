@@ -31,11 +31,12 @@ if (isset($_GET["id"])) {
     $pmkReviewId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
     
     
-    $query = 'SELECT fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkReviewId = ?';
+    $query = 'SELECT pmkBookId, fldTitle, fldAuthor, fldGenre FROM tblUsersBooks, tblBooks WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND pmkReviewId = ?';
     $results = $thisDatabaseReader->select($query, array($pmkReviewId), 1, 1, 0, 0, false, false);
     $fldTitle = $results[0]["fldTitle"];
     $fldAuthor = $results[0]["fldAuthor"];
     $fldGenre = $results[0]["fldGenre"];
+    $pmkBookId = $results[0]["pmkBookId"];
     
     } 
     
@@ -45,6 +46,8 @@ if (isset($_GET["id"])) {
     $fldAuthor = "";
     $fldGenre = "";
 }
+
+
     
 
 
@@ -164,8 +167,8 @@ if (isset($_POST["btnSubmit"])) {
             $query .= 'fldGenre = ? ';
 
             if ($update) {
-                $query .= 'WHERE pmkReviewId = ?';
-                $data[] = $pmkReviewId;
+                $query .= 'WHERE pmkBookId = ?';
+                $data[] = $pmkBookId;
 
                 if ($_SERVER["REMOTE_USER"] == 'kbevins') {
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
