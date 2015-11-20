@@ -198,7 +198,7 @@ if (isset($_POST["btnSubmit"])) {
             //}
             if ($debug)
                 print "<p>transaction complete ";
-        } catch (PDOException $e) {
+        } catch (PDOEcxeption $e) {
             $thisDatabaseWriter->db->rollback();
             if ($debug)
                 print "Error!: " . $e->getMessage() . "</br>";
