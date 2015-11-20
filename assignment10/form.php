@@ -51,7 +51,7 @@ if (isset($_GET["id"])) {
     $fldLastName = "";
     $fldTitle = "";
     $fldAuthor = "";
-    $fldGenre = "";
+    $fldGenre = "Classic";
 }
 
 
@@ -124,7 +124,7 @@ if (isset($_POST["btnSubmit"])) {
     $fldAuthor = htmlentities($_POST["txtAuthor"], ENT_QUOTES, "UTF-8");
     $data[] = $fldAuthor;
 
-    $fldGenre = htmlentities($_POST["txtGenre"], ENT_QUOTES, "UTF-8");
+    $fldGenre = htmlentities($_POST["listGenre"], ENT_QUOTES, "UTF-8");
     $data[] = $fldGenre;
     
     
@@ -202,7 +202,7 @@ if (isset($_POST["btnSubmit"])) {
     
             if ($update) {
                 $query = 'UPDATE tblBooks SET ';
-                //$query2 = 'UPDATE tblUsers SET ';
+                $query2 = 'UPDATE tblUsers SET ';
             } 
             else {
                 $query = 'INSERT INTO tblBooks SET ';
@@ -218,25 +218,42 @@ if (isset($_POST["btnSubmit"])) {
 
             if ($update) {
                 $query .= 'WHERE pmkBookId = ?';
+                $query2 .= 'WHERE pmkEmail = ?'; 
                 
                
                 
                 $data[] = $pmkBookId;
                 
+                $data2[] = $pmkEmail;
+                
 
-                if ($_SERVER["REMOTE_USER"] == 'kbevins') {
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
-                }
+                    $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
+                
             } else {
-                if ($_SERVER["REMOTE_USER"] == 'kbevins'){
+               
                     $results = $thisDatabaseWriter->insert($query, $data);
-                    $results = $thisDatabaseWriter->insert($query2, $data2);
+                    $results2 = $thisDatabaseWriter->insert($query2, $data2);
                     $primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
                     }
-                }
+                
             }
+//                if ($_SERVER["REMOTE_USER"] == 'kbevins') {
+//                    $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
+//                    $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
+//                }
+//            } else {
+//                if ($_SERVER["REMOTE_USER"] == 'kbevins'){
+//                    $results = $thisDatabaseWriter->insert($query, $data);
+//                    $results2 = $thisDatabaseWriter->insert($query2, $data2);
+//                    $primaryKey = $thisDatabaseWriter->lastInsert();
+//                    if ($debug) {
+//                        print "<p>pmk= " . $primaryKey;
+//                    }
+//                }
+//            }
 
             // all sql statements are done so lets commit to our changes
             //if($_SERVER["REMOTE_USER"]=='kbevins'){
@@ -272,6 +289,7 @@ if (isset($_POST["btnSubmit"])) {
 // to display the form.
     if ($dataEntered) { // closing of if marked with: end body submit
         print "<h1>Record Saved</h1> ";
+        
     } else {
 //####################################
 //
@@ -363,15 +381,32 @@ if (isset($_POST["btnSubmit"])) {
                            onfocus="this.select()"
                            >
                 </label>
+<label for="listGenre">Genre
+<select id="listGenre"
+        name="listGenre"
+        tabindex="300" >
+  
+    <option value="Classic">Classic</option>
+    <option value="Fantasy">Fantasy</option>
+    <option value="Fiction" selected>Fiction</option>
+    <option value="Horror">Horror</option>
+    <option value="Humor">Humor</option>
+    <option value="Mystery">Mystery</option>
+    <option value="Nonfiction">Nonfiction</option>
+    <option value="Romance">Romance</option>
+    <option value="Science Fiction">Science Fiction</option>
+    <option value="Other">Other</option>
 
-                <label for="txtGenre" class="required">Genre
+</select></label>
+<!--                
+<label for="txtGenre" class="required">Genre
                     <input type="text" id="txtGenre" name="txtGenre"
                            value="<?php print $fldGenre; ?>"
                            tabindex="100" maxlength="45" placeholder="Enter the Genre"
     <?php if ($fldGenreERROR) print 'class="mistake"'; ?>
                            onfocus="this.select()"
                            >
-                </label>                
+                </label>                -->
                  </fieldset>
             </fieldset> <!-- ends contact -->
             </fieldset> <!-- ends wrapper Two -->
