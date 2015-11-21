@@ -31,7 +31,7 @@ if (isset($_GET["id"])) {
     $pmkBookId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
     
     
-    $query = 'SELECT pmkBookId, fldTitle, fldAuthor, fldGenre,fldFirstName,fldLastName, pmkEmail FROM tblUsersBooks, tblBooks, tblUsers WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND tblUsersBooks.fnkEmail=tblUsers.pmkEmail AND pmkReviewId = ?';
+    $query = 'SELECT pmkBookId, pmkReviewId, fldTitle, fldAuthor, fldGenre,fldFirstName,fldLastName,fldRating, pmkEmail FROM tblUsersBooks, tblBooks, tblUsers WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND tblUsersBooks.fnkEmail=tblUsers.pmkEmail AND pmkReviewId = ?';
     $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 2, 0, 0, false, false);
     $pmkEmail = $results[0]["pmkEmail"];
     $fldFirstName = $results[0]["fldFirstName"];
@@ -39,8 +39,10 @@ if (isset($_GET["id"])) {
     $fldTitle = $results[0]["fldTitle"];
     $fldAuthor = $results[0]["fldAuthor"];
     $fldGenre = $results[0]["fldGenre"];
+    $fldRating = $results[0]["fldRating"]; 
+    $pmkReviewId = $results[0]["pmkReviewId"];
    
-    
+   
    
     } 
     
@@ -52,6 +54,8 @@ if (isset($_GET["id"])) {
     $fldTitle = "";
     $fldAuthor = "";
     $fldGenre = "Classic";
+    $fldRating = 1;
+    
 }
 
 
@@ -78,6 +82,7 @@ $fldGenreERROR = false;
 $errorMsg = array();
 $data = array();
 $data2 = array();
+$data3 = array();
 $dataEntered = false;
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -110,6 +115,8 @@ if (isset($_POST["btnSubmit"])) {
     
     // I am not putting the ID in the $data array at this time
     $pmkEmail = htmlentities($_POST["txtEmail"], ENT_QUOTES, "UTF-8");
+    $pmkReviewId = (int) htmlentities($_POST["hidReviewId"], ENT_QUOTES, "UTF-8");
+    
     $data2[] = $pmkEmail;
     
     $fldFirstName = htmlentities($_POST["txtFirstName"], ENT_QUOTES, "UTF-8");
@@ -126,6 +133,9 @@ if (isset($_POST["btnSubmit"])) {
 
     $fldGenre = htmlentities($_POST["listGenre"], ENT_QUOTES, "UTF-8");
     $data[] = $fldGenre;
+    
+    $fldRating = htmlentities($_POST["radMyRating"], ENT_QUOTES, "UTF-8");
+    $data3[] = $fldRating;
     
     
 
@@ -175,7 +185,10 @@ if (isset($_POST["btnSubmit"])) {
     if ($fldGenre == "") {
         $errorMsg[] = "Please enter the genre";
         $fldGenreERROR = true;
-    }// should check to make sure its the correct date format
+    }
+    
+    //
+    //// should check to make sure its the correct date format
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
 // SECTION: 2d Process Form - Passed Validation
@@ -203,10 +216,13 @@ if (isset($_POST["btnSubmit"])) {
             if ($update) {
                 $query = 'UPDATE tblBooks SET ';
                 $query2 = 'UPDATE tblUsers SET ';
+                $query3 = 'UPDATE tblUsersBooks SET ';
+                
             } 
             else {
                 $query = 'INSERT INTO tblBooks SET ';
                 $query2 = 'INSERT INTO tblUsers SET ';
+                $query3 = 'INSERT INTO tblUsersBooks SET ';
             }
 
             $query .= 'fldTitle = ?, ';
@@ -215,10 +231,15 @@ if (isset($_POST["btnSubmit"])) {
             $query2 .= 'pmkEmail = ?, ';
             $query2 .= 'fldFirstName = ?, ';
             $query2 .= 'fldLastName = ? ';
+            $query3 .= 'fldRating = ? ';
+            
 
             if ($update) {
                 $query .= 'WHERE pmkBookId = ?';
-                $query2 .= 'WHERE pmkEmail = ?'; 
+                $query2 .= 'WHERE pmkEmail = ?';
+                $query3 .= 'WHERE pmkReviewId = ?';
+                
+                
                 
                
                 
@@ -226,14 +247,18 @@ if (isset($_POST["btnSubmit"])) {
                 
                 $data2[] = $pmkEmail;
                 
+                $data3[] = $pmkReviewId;
+                
 
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
                     $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
+                    $results3 = $thisDatabaseWriter->testquery($query3, $data3, 1, 0, 0, 0, false, false);
                 
             } else {
                
                     $results = $thisDatabaseWriter->insert($query, $data);
                     $results2 = $thisDatabaseWriter->insert($query2, $data2);
+                    $results3 = $thisDatabaseWriter->insert($query3, $data3);
                     $primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
@@ -333,6 +358,10 @@ if (isset($_POST["btnSubmit"])) {
                        value="<?php print $pmkBookId; ?>"
 
                 >
+                 <input type="hidden" id="hidReviewId" name="hidReviewId"
+                       value="<?php print $pmkReviewId; ?>"
+
+                >
                  <fieldset class="wrapper">
                      <legend>User Information</legend>
                  <label for="txtEmail" class="required">User Email
@@ -409,6 +438,48 @@ if (isset($_POST["btnSubmit"])) {
                 </label>                -->
                  </fieldset>
             </fieldset> <!-- ends contact -->
+            <fieldset class="wrapper">
+                <legend>Review of Book</legend>
+                    
+                <fieldset class="radio">
+    <legend>Rating of book (1 = worst, 5 = best):</legend>
+
+    <label for="radOneStar">
+        <input type="radio" 
+               id="radOneStar" 
+               name="radMyRating"
+               value="1">One star
+    </label>
+
+    <label for="radTwoStars">
+        <input type="radio" 
+               id="radTwoStars" 
+               name="radMyRating" 
+               value="2">Two Stars
+    </label>
+    
+    <label for="radThreeStars">
+        <input type="radio" 
+               id="radThreeStars" 
+               name="radMyRating" 
+               value="3">Three Stars
+    </label>
+
+    <label for="radFourStars">
+        <input type="radio" 
+               id="radFourStars" 
+               name="radMyRating" 
+               value="4">Four Stars
+    </label>
+    
+    <label for="radFiveStars">
+        <input type="radio" 
+               id="radFiveStars" 
+               name="radMyRating" 
+               value="5">Five Stars
+    </label>
+</fieldset>
+            </fieldset>
             </fieldset> <!-- ends wrapper Two -->
             <fieldset class="buttons">
                 <legend></legend>
