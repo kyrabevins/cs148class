@@ -136,6 +136,7 @@ if (isset($_POST["btnSubmit"])) {
     
     $fldRating = htmlentities($_POST["radMyRating"], ENT_QUOTES, "UTF-8");
     $data3[] = $fldRating;
+    $data3[] = $pmkBookId;
     
     
 
@@ -231,7 +232,8 @@ if (isset($_POST["btnSubmit"])) {
             $query2 .= 'pmkEmail = ?, ';
             $query2 .= 'fldFirstName = ?, ';
             $query2 .= 'fldLastName = ? ';
-            $query3 .= 'fldRating = ? ';
+            $query3 .= 'fldRating = ?, ';
+            $query3 .= 'fnkBookId = ? ';
             
 
             if ($update) {
@@ -252,7 +254,7 @@ if (isset($_POST["btnSubmit"])) {
 
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
                     $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
-                    $results3 = $thisDatabaseWriter->testquery($query3, $data3, 1, 0, 0, 0, false, false);
+                    $results3 = $thisDatabaseWriter->update($query3, $data3, 1, 0, 0, 0, false, false);
                 
             } else {
                
