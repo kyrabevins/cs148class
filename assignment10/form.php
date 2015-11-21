@@ -137,6 +137,7 @@ if (isset($_POST["btnSubmit"])) {
     $fldRating = htmlentities($_POST["radMyRating"], ENT_QUOTES, "UTF-8");
     $data3[] = $fldRating;
     $data3[] = $pmkBookId;
+    $data3[] = $pmkEmail;
     
     
 
@@ -233,7 +234,8 @@ if (isset($_POST["btnSubmit"])) {
             $query2 .= 'fldFirstName = ?, ';
             $query2 .= 'fldLastName = ? ';
             $query3 .= 'fldRating = ?, ';
-            $query3 .= 'fnkBookId = ? ';
+            $query3 .= 'fnkBookId = ?, ';
+            $query3 .= 'fnkEmail = ? ';
             
 
             if ($update) {
