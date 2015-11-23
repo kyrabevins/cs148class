@@ -10,6 +10,7 @@ include "top.php";
 //
 // SECTION: 1 Initialize variables
 $update = false;
+$debug = true;
 
 // SECTION: 1a.
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -31,7 +32,7 @@ if (isset($_GET["id"])) {
     $pmkBookId = (int) htmlentities($_GET["id"], ENT_QUOTES, "UTF-8");
     
     
-    $query = 'SELECT pmkBookId, pmkReviewId, fldTitle, fldAuthor, fldGenre,fldFirstName,fldLastName,fldRating, pmkEmail FROM tblUsersBooks, tblBooks, tblUsers WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND tblUsersBooks.fnkEmail=tblUsers.pmkEmail AND pmkReviewId = ?';
+    $query = 'SELECT pmkBookId, pmkReviewId, fldDescription, fldTitle, fldAuthor, fldGenre,fldFirstName,fldLastName,fldRating, pmkEmail FROM tblUsersBooks, tblBooks, tblUsers WHERE tblUsersBooks.fnkBookId=tblBooks.pmkBookId AND tblUsersBooks.fnkEmail=tblUsers.pmkEmail AND pmkReviewId = ?';
     $results = $thisDatabaseReader->select($query, array($pmkBookId), 1, 2, 0, 0, false, false);
     $pmkEmail = $results[0]["pmkEmail"];
     $fldFirstName = $results[0]["fldFirstName"];
@@ -41,6 +42,10 @@ if (isset($_GET["id"])) {
     $fldGenre = $results[0]["fldGenre"];
     $fldRating = $results[0]["fldRating"]; 
     $pmkReviewId = $results[0]["pmkReviewId"];
+    $fldFavorite = "";
+    $fldDescription = $results[0]["fldDescription"];
+    
+    
    
    
    
@@ -55,6 +60,9 @@ if (isset($_GET["id"])) {
     $fldAuthor = "";
     $fldGenre = "Classic";
     $fldRating = 1;
+    $fldFavorite = "";
+    $fldDescription = "";
+    
     
 }
 
@@ -74,6 +82,7 @@ $fldLastNameERROR = false;
 $fldTitleERROR = false;
 $fldAuthorERROR = false;
 $fldGenreERROR = false;
+$fldDescriptionERROR = false;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1e misc variables
@@ -117,13 +126,8 @@ if (isset($_POST["btnSubmit"])) {
     $pmkEmail = htmlentities($_POST["txtEmail"], ENT_QUOTES, "UTF-8");
     $pmkReviewId = (int) htmlentities($_POST["hidReviewId"], ENT_QUOTES, "UTF-8");
     
-    $data2[] = $pmkEmail;
     
-    $fldFirstName = htmlentities($_POST["txtFirstName"], ENT_QUOTES, "UTF-8");
-    $data2[] = $fldFirstName;
     
-    $fldLastName = htmlentities($_POST["txtLastName"], ENT_QUOTES, "UTF-8");
-    $data2[] = $fldLastName;
     
     $fldTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
     $data[] = $fldTitle;
@@ -134,10 +138,26 @@ if (isset($_POST["btnSubmit"])) {
     $fldGenre = htmlentities($_POST["listGenre"], ENT_QUOTES, "UTF-8");
     $data[] = $fldGenre;
     
+    
+    
+    
+    $data2[] = $pmkEmail;
+    
+    $fldFirstName = htmlentities($_POST["txtFirstName"], ENT_QUOTES, "UTF-8");
+    $data2[] = $fldFirstName;
+    
+    $fldLastName = htmlentities($_POST["txtLastName"], ENT_QUOTES, "UTF-8");
+    $data2[] = $fldLastName;
+    
     $fldRating = htmlentities($_POST["radMyRating"], ENT_QUOTES, "UTF-8");
+    $fldFavorite = htmlentities($_POST["radMyFavorite"], ENT_QUOTES, "UTF-8");
+    $fldDescription = htmlentities($_POST["txtDescription"], ENT_QUOTES, "UTF-8");
+    
     $data3[] = $fldRating;
     $data3[] = $pmkBookId;
     $data3[] = $pmkEmail;
+    $data3[] = $fldFavorite;
+    $data3[] = $fldDescription;
     
     
 
@@ -188,6 +208,10 @@ if (isset($_POST["btnSubmit"])) {
         $errorMsg[] = "Please enter the genre";
         $fldGenreERROR = true;
     }
+    if ($fldDescription == "") {
+        $errorMsg[] = "Please enter your review of the book";
+        $fldDescriptionERROR = true;
+    }
     
     //
     //// should check to make sure its the correct date format
@@ -235,7 +259,10 @@ if (isset($_POST["btnSubmit"])) {
             $query2 .= 'fldLastName = ? ';
             $query3 .= 'fldRating = ?, ';
             $query3 .= 'fnkBookId = ?, ';
-            $query3 .= 'fnkEmail = ? ';
+            $query3 .= 'fnkEmail = ?, ';
+            $query3 .= 'fldFavorite = ?, ';
+            $query3 .= 'fldDescription = ? ';
+            
             
 
             if ($update) {
@@ -366,6 +393,7 @@ if (isset($_POST["btnSubmit"])) {
                        value="<?php print $pmkReviewId; ?>"
 
                 >
+                 
                  <fieldset class="wrapper">
                      <legend>User Information</legend>
                  <label for="txtEmail" class="required">User Email
@@ -482,9 +510,50 @@ if (isset($_POST["btnSubmit"])) {
                name="radMyRating" 
                value="5">Five Stars
     </label>
+    
 </fieldset>
+                <fieldset>
+                    
+    <legend>Who would you recommend this book to? (check all that apply)</legend>
+    <label for="chkFriends"><input type="checkbox" 
+                                       id="chkFriends" 
+                                       name="chkFriends" 
+                                       value="Friends">Friends
+    </label>
+    <label for="chkFamily"><input type="checkbox" 
+                                                id="chkFamily" 
+                                                name="chkFamily" 
+                                                value="Family">Family
+    </label>
+    <label for="chkNone"><input type="checkbox" 
+                                                id="chkNone" 
+                                                name="chkNone" 
+                                                value="No one">No one
+    </label>
+    
+                </fieldset>
+                <fieldset>
+                    
+    <legend>Do you want to add this book to your favorites?</legend>
+
+    <label for="radFavorite">
+        <input type="radio" 
+               id="radFavorite" 
+               name="radMyFavorite"
+               value="Yes">Yes
+    </label>
+               
             </fieldset>
-            </fieldset> <!-- ends wrapper Two -->
+                <fieldset  class="textarea">					
+    <label for="txtDescription" class="required">Please type your review of the book:</label>
+    <textarea id="txtDescription" 
+              name="txtDescription" 
+              tabindex="200"
+    <?php if ($fldDescriptionERROR) print 'class="mistake"'; ?>
+              onfocus="this.select()" 
+              style="width: 25em; height: 4em;" ></textarea>
+              <!-- NOTE: no blank spaces inside the text area -->
+</fieldset>
             <fieldset class="buttons">
                 <legend></legend>
                 <input type="submit" id="btnSubmit" name="btnSubmit" value="Save" tabindex="900" class="button">
