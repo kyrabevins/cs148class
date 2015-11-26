@@ -19,11 +19,14 @@ $columns = 8;
         
         print '<section class="reviews">';
         
-        print '<h3 class="title">Title: ' . '<a href="https://kbevins.w3.uvm.edu/cs148/assignment10/form.php?id=' . $rev["pmkReviewId"] . '">' .  $rev["fldTitle"] . '   [Edit]' . "</a><br>";
+        print '<h3 class="title">Title: ' . $rev["fldTitle"] . '<a href="https://kbevins.w3.uvm.edu/cs148/assignment10/form.php?id=' . $rev["pmkReviewId"] . '">   [Edit]' . "</a><br>";
+        
+        
         print '<p><b>Reviewer: </b>' . $rev["fldFirstName"] . " " . $rev["fldLastName"] . '</p>';
         print '<p><b>Rating: </b>' . $rev["fldRating"] . ' stars</p>';
        
         print '<p class="description">"' . $rev["fldDescription"] . '"</p>';
+        print '<h3 class="delete"><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/form2.php?id=' . $rev["pmkReviewId"] . '">' . 'Delete' . "</a><br>";
         
         print '</section>';
        //}

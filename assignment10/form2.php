@@ -115,104 +115,16 @@ if (isset($_POST["btnSubmit"])) {
 // SECTION: 2b Sanitize (clean) data
 // remove any potential JavaScript or html code from users input on the
 // form. Note it is best to follow the same order as declared in section 1c.
-   $pmkBookId = (int) htmlentities($_POST["hidBookId"], ENT_QUOTES, "UTF-8");
-    if ($pmkBookId > 0) {
-        $update = true;
-    }
-    
-    
-    
-    // I am not putting the ID in the $data array at this time
-    $pmkEmail = htmlentities($_POST["txtEmail"], ENT_QUOTES, "UTF-8");
+  
     $pmkReviewId = (int) htmlentities($_POST["hidReviewId"], ENT_QUOTES, "UTF-8");
     
     
     
     
-    $fldTitle = htmlentities($_POST["txtBookTitle"], ENT_QUOTES, "UTF-8");
-    $data[] = $fldTitle;
-
-    $fldAuthor = htmlentities($_POST["txtAuthor"], ENT_QUOTES, "UTF-8");
-    $data[] = $fldAuthor;
-
-    $fldGenre = htmlentities($_POST["listGenre"], ENT_QUOTES, "UTF-8");
-    $data[] = $fldGenre;
     
-    
-    
-    
-    $data2[] = $pmkEmail;
-    
-    $fldFirstName = htmlentities($_POST["txtFirstName"], ENT_QUOTES, "UTF-8");
-    $data2[] = $fldFirstName;
-    
-    $fldLastName = htmlentities($_POST["txtLastName"], ENT_QUOTES, "UTF-8");
-    $data2[] = $fldLastName;
-    
-    $fldRating = htmlentities($_POST["radMyRating"], ENT_QUOTES, "UTF-8");
-    $fldFavorite = htmlentities($_POST["radMyFavorite"], ENT_QUOTES, "UTF-8");
-    $fldDescription = htmlentities($_POST["txtDescription"], ENT_QUOTES, "UTF-8");
-    
-    $data3[] = $fldRating;
-    $data3[] = $pmkBookId;
-    $data3[] = $pmkEmail;
-    $data3[] = $fldFavorite;
-    $data3[] = $fldDescription;
     
     
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//
-// SECTION: 2c Validation
-//
-    if ($pmkEmail == "") {
-        $errorMsg[] = "Please enter the title of the book";
-        $pmkEmailERROR = true;
-    
-    }
-    
-    if ($fldFirstName == "") {
-        $errorMsg[] = "Please enter your first name";
-        $fldFirstNameERROR = true;
-    } elseif (!verifyAlphaNum($fldFirstName)) {
-        $errorMsg[] = "Your first name appears to have extra character.";
-        $fldFirstNameERROR = true;
-    }
-    
-     if ($fldLastName == "") {
-        $errorMsg[] = "Please enter your last name";
-        $fldLastNameERROR = true;
-    } elseif (!verifyAlphaNum($fldLastName)) {
-        $errorMsg[] = "Your last name appears to have extra character.";
-        $fldLastNameERROR = true;
-    }
-    
-    
-    if ($fldTitle == "") {
-        $errorMsg[] = "Please enter the title of the book";
-        $fldTitleERROR = true;
-    } elseif (!verifyAlphaNum($fldTitle)) {
-        $errorMsg[] = "Your title appears to have extra character.";
-        $fldTitleERROR = true;
-    }
-
-    if ($fldAuthor == "") {
-        $errorMsg[] = "Please enter the author";
-        $fldAuthorERROR = true;
-    } elseif (!verifyAlphaNum($fldAuthor)) {
-        $errorMsg[] = "Your author appears to have extra character.";
-        $fldAuthorERROR = true;
-    }
-
-    if ($fldGenre == "") {
-        $errorMsg[] = "Please enter the genre";
-        $fldGenreERROR = true;
-    }
-    if ($fldDescription == "") {
-        $errorMsg[] = "Please enter your review of the book";
-        $fldDescriptionERROR = true;
-    }
-    
     //
     //// should check to make sure its the correct date format
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -239,63 +151,20 @@ if (isset($_POST["btnSubmit"])) {
             $thisDatabaseWriter->db->beginTransaction();
    
     
-            if ($update) {
-                $query = 'UPDATE tblBooks SET ';
-                $query2 = 'UPDATE tblUsers SET ';
-                $query3 = 'UPDATE tblUsersBooks SET ';
-                
+            
+                $query = 'DELETE FROM tblUsersBooks WHERE ';
+                $query .= 'pmkReviewId = ? ';
+                $data[] = $pmkReviewId;
+                $results = $thisDatabaseWriter->delete($query, $data, 1, 0, 0, 0, false, false);
+                $dataEntered = $thisDatabaseWriter->db->commit();
+            //else{
+               //  $thisDatabaseWriter->db->rollback();
+            
+            if ($debug)
+                print "<p>transaction complete ";
             } 
-            else {
-                $query = 'INSERT INTO tblBooks SET ';
-                $query2 = 'INSERT INTO tblUsers SET ';
-                $query3 = 'INSERT INTO tblUsersBooks SET ';
-            }
-
-            $query .= 'fldTitle = ?, ';
-            $query .= 'fldAuthor = ?, ';
-            $query .= 'fldGenre = ? ';
-            $query2 .= 'pmkEmail = ?, ';
-            $query2 .= 'fldFirstName = ?, ';
-            $query2 .= 'fldLastName = ? ';
-            $query3 .= 'fldRating = ?, ';
-            $query3 .= 'fnkBookId = ?, ';
-            $query3 .= 'fnkEmail = ?, ';
-            $query3 .= 'fldFavorite = ?, ';
-            $query3 .= 'fldDescription = ? ';
             
             
-
-            if ($update) {
-                $query .= 'WHERE pmkBookId = ?';
-                $query2 .= 'WHERE pmkEmail = ?';
-                $query3 .= 'WHERE pmkReviewId = ?';
-                
-                
-                
-               
-                
-                $data[] = $pmkBookId;
-                
-                $data2[] = $pmkEmail;
-                
-                $data3[] = $pmkReviewId;
-                
-
-                    $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
-                    $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
-                    $results3 = $thisDatabaseWriter->update($query3, $data3, 1, 0, 0, 0, false, false);
-                
-            } else {
-               
-                    $results = $thisDatabaseWriter->insert($query, $data);
-                    $results2 = $thisDatabaseWriter->insert($query2, $data2);
-                    $results3 = $thisDatabaseWriter->insert($query3, $data3);
-                    $primaryKey = $thisDatabaseWriter->lastInsert();
-                    if ($debug) {
-                        print "<p>pmk= " . $primaryKey;
-                    }
-                
-            }
 //                if ($_SERVER["REMOTE_USER"] == 'kbevins') {
 //                    $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
 //                    $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
@@ -313,13 +182,8 @@ if (isset($_POST["btnSubmit"])) {
 
             // all sql statements are done so lets commit to our changes
             //if($_SERVER["REMOTE_USER"]=='kbevins'){
-            $dataEntered = $thisDatabaseWriter->db->commit();
-            //else{
-               //  $thisDatabaseWriter->db->rollback();
             
-            if ($debug)
-                print "<p>transaction complete ";
-        } catch (PDOEcxeption $e) {
+         catch (PDOEcxeption $e) {
             $thisDatabaseWriter->db->rollback();
             if ($debug)
                 print "Error!: " . $e->getMessage() . "</br>";
@@ -343,26 +207,7 @@ if (isset($_POST["btnSubmit"])) {
 //
 // If its the first time coming to the form or there are errors we are going
 // to display the form.
-    if ($dataEntered) { // closing of if marked with: end body submit
-        print "<h1>Record Saved</h1> ";
-        
-    } else {
-//####################################
-//
-// SECTION 3b Error Messages
-//
-// display any error messages before we print out the form
-        if ($errorMsg) {
-            print '<div id="errors">';
-            print '<h1>Your form has the following mistakes</h1>';
-
-            print "<ol>\n";
-            foreach ($errorMsg as $err) {
-                print "<li>" . $err . "</li>\n";
-            }
-            print "</ol>\n";
-            print '</div>';
-        }
+    
 //####################################
 //
 // SECTION 3c html Form
@@ -383,185 +228,23 @@ if (isset($_POST["btnSubmit"])) {
               method="post"
               id="frmRegister">
             <fieldset class="wrapper">
-                <legend>Add/Update Book Review</legend>
+                <legend>Are you sure you want to delete this book review?</legend>
                 
-                 <input type="hidden" id="hidBookId" name="hidBookId"
-                       value="<?php print $pmkBookId; ?>"
-
-                >
+               
                  <input type="hidden" id="hidReviewId" name="hidReviewId"
                        value="<?php print $pmkReviewId; ?>"
 
                 >
                  
-                 <fieldset class="wrapper">
-                     <legend>User Information</legend>
-                 <label for="txtEmail" class="required">User Email
-                    <input type="text" id="txtEmail" name="txtEmail"
-                           value="<?php print $pmkEmail; ?>"
-                           tabindex="100" maxlength="45" placeholder="Enter your user email"
-    <?php if ($pmkEmailERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           autofocus>
-                </label>
                  
-                 <label for="txtFirstName" class="required">First Name
-                    <input type="text" id="txtFirstName" name="txtFirstName"
-                           value="<?php print $fldFirstName; ?>"
-                           tabindex="100" maxlength="45" placeholder="Enter your first name"
-    <?php if ($fldFirstNameERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           autofocus>
-                </label>
-                 
-                 <label for="txtLastName" class="required">Last Name
-                    <input type="text" id="txtLastName" name="txtLastName"
-                           value="<?php print $fldLastName; ?>"
-                           tabindex="100" maxlength="45" placeholder="Enter your last name"
-    <?php if ($fldLastNameERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           autofocus>
-                </label>
-                 </fieldset>
-                 <fieldset class="wrapper">
-                     <legend>Book Information</legend>
-                <label for="txtBookTitle" class="required">Book Title
-                    <input type="text" id="txtBookTitle" name="txtBookTitle"
-                           value="<?php print $fldTitle; ?>"
-                           tabindex="100" maxlength="45" placeholder="Enter the book title"
-    <?php if ($fldTitleERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           autofocus>
-                </label>
-
-                <label for="txtAuthor" class="required">Author
-                    <input type="text" id="txtAuthor" name="txtAuthor"
-                           value="<?php print $fldAuthor; ?>"
-                           tabindex="100" maxlength="45" placeholder="Enter the author"
-    <?php if ($fldAuthorERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           >
-                </label>
-<label for="listGenre">Genre
-<select id="listGenre"
-        name="listGenre"
-        tabindex="300" >
-  
-    <option value="Classic">Classic</option>
-    <option value="Fantasy">Fantasy</option>
-    <option value="Fiction" selected>Fiction</option>
-    <option value="Horror">Horror</option>
-    <option value="Humor">Humor</option>
-    <option value="Mystery">Mystery</option>
-    <option value="Nonfiction">Nonfiction</option>
-    <option value="Romance">Romance</option>
-    <option value="Science Fiction">Science Fiction</option>
-    <option value="Other">Other</option>
-
-</select></label>
-<!--                
-<label for="txtGenre" class="required">Genre
-                    <input type="text" id="txtGenre" name="txtGenre"
-                           value="<?php print $fldGenre; ?>"
-                           tabindex="100" maxlength="45" placeholder="Enter the Genre"
-    <?php if ($fldGenreERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           >
-                </label>                -->
-                 </fieldset>
-            </fieldset> <!-- ends contact -->
-            <fieldset class="wrapper">
-                <legend>Review of Book</legend>
-                    
-                <fieldset class="radio">
-    <legend>Rating of book (1 = worst, 5 = best):</legend>
-
-    <label for="radOneStar">
-        <input type="radio" 
-               id="radOneStar" 
-               name="radMyRating"
-               value="1">One star
-    </label>
-
-    <label for="radTwoStars">
-        <input type="radio" 
-               id="radTwoStars" 
-               name="radMyRating" 
-               value="2">Two Stars
-    </label>
-    
-    <label for="radThreeStars">
-        <input type="radio" 
-               id="radThreeStars" 
-               name="radMyRating" 
-               value="3">Three Stars
-    </label>
-
-    <label for="radFourStars">
-        <input type="radio" 
-               id="radFourStars" 
-               name="radMyRating" 
-               value="4">Four Stars
-    </label>
-    
-    <label for="radFiveStars">
-        <input type="radio" 
-               id="radFiveStars" 
-               name="radMyRating" 
-               value="5">Five Stars
-    </label>
-    
-</fieldset>
-                <fieldset>
-                    
-    <legend>Who would you recommend this book to? (check all that apply)</legend>
-    <label for="chkFriends"><input type="checkbox" 
-                                       id="chkFriends" 
-                                       name="chkFriends" 
-                                       value="Friends">Friends
-    </label>
-    <label for="chkFamily"><input type="checkbox" 
-                                                id="chkFamily" 
-                                                name="chkFamily" 
-                                                value="Family">Family
-    </label>
-    <label for="chkNone"><input type="checkbox" 
-                                                id="chkNone" 
-                                                name="chkNone" 
-                                                value="No one">No one
-    </label>
-    
-                </fieldset>
-                <fieldset>
-                    
-    <legend>Do you want to add this book to your favorites?</legend>
-
-    <label for="radFavorite">
-        <input type="radio" 
-               id="radFavorite" 
-               name="radMyFavorite"
-               value="Yes">Yes
-    </label>
-               
-            </fieldset>
-                <fieldset  class="textarea">					
-    <label for="txtDescription" class="required">Please type your review of the book:</label>
-    <textarea id="txtDescription" 
-              name="txtDescription" 
-              tabindex="200"
-    <?php if ($fldDescriptionERROR) print 'class="mistake"'; ?>
-              onfocus="this.select()" 
-              style="width: 25em; height: 4em;" ></textarea>
-              <!-- NOTE: no blank spaces inside the text area -->
-</fieldset>
             <fieldset class="buttons">
                 <legend></legend>
-                <input type="submit" id="btnSubmit" name="btnSubmit" value="Save" tabindex="900" class="button">
+                <input type="submit" id="btnSubmit" name="btnSubmit" value="Yes" tabindex="900" class="button">
             </fieldset> <!-- ends buttons -->
             </fieldset> <!-- Ends Wrapper -->
         </form>
         <?php
-    } // end body submit
+     // end body submit
     ?>
 </article>
 
@@ -570,6 +253,6 @@ include "footer.php";
 if ($debug)
     print "<p>END OF PROCESSING</p>";
 ?>
-</article>
+
 </body>
 </html>
