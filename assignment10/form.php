@@ -153,11 +153,7 @@ if (isset($_POST["btnSubmit"])) {
     $fldFavorite = htmlentities($_POST["radMyFavorite"], ENT_QUOTES, "UTF-8");
     $fldDescription = htmlentities($_POST["txtDescription"], ENT_QUOTES, "UTF-8");
     
-    $data3[] = $fldRating;
-    $data3[] = $pmkBookId;
-    $data3[] = $pmkEmail;
-    $data3[] = $fldFavorite;
-    $data3[] = $fldDescription;
+    
     
     
 
@@ -242,13 +238,13 @@ if (isset($_POST["btnSubmit"])) {
             if ($update) {
                 $query = 'UPDATE tblBooks SET ';
                 $query2 = 'UPDATE tblUsers SET ';
-                $query3 = 'UPDATE tblUsersBooks SET ';
+//                $query3 = 'UPDATE tblUsersBooks SET ';
                 
             } 
             else {
                 $query = 'INSERT INTO tblBooks SET ';
                 $query2 = 'INSERT INTO tblUsers SET ';
-                $query3 = 'INSERT INTO tblUsersBooks SET ';
+//                $query3 = 'INSERT INTO tblUsersBooks SET ';
             }
 
             $query .= 'fldTitle = ?, ';
@@ -257,19 +253,19 @@ if (isset($_POST["btnSubmit"])) {
             $query2 .= 'pmkEmail = ?, ';
             $query2 .= 'fldFirstName = ?, ';
             $query2 .= 'fldLastName = ? ';
-            $query3 .= 'fldRating = ?, ';
-            $query3 .= 'fnkBookId = ?, ';
-            $query3 .= 'fnkEmail = ?, ';
-            $query3 .= 'fldFavorite = ?, ';
-            $query3 .= 'fldDescription = ? ';
+//            $query3 .= 'fldRating = ?, ';
+//            $query3 .= 'fnkBookId = ?, ';
+//            $query3 .= 'fnkEmail = ?, ';
+//            $query3 .= 'fldFavorite = ?, ';
+//            $query3 .= 'fldDescription = ? ';
             
             
 
             if ($update) {
                 $query .= 'WHERE pmkBookId = ?';
                 $query2 .= 'WHERE pmkEmail = ?';
-                $query3 .= 'WHERE pmkReviewId = ?';
-                
+//                $query3 .= 'WHERE pmkReviewId = ?';
+//                
                 
                 
                
@@ -278,38 +274,26 @@ if (isset($_POST["btnSubmit"])) {
                 
                 $data2[] = $pmkEmail;
                 
-                $data3[] = $pmkReviewId;
+//                $data3[] = $pmkReviewId;
                 
 
                     $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
                     $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
-                    $results3 = $thisDatabaseWriter->update($query3, $data3, 1, 0, 0, 0, false, false);
+//                    $results3 = $thisDatabaseWriter->update($query3, $data3, 1, 0, 0, 0, false, false);
                 
             } else {
                
                     $results = $thisDatabaseWriter->insert($query, $data);
-                    $results2 = $thisDatabaseWriter->insert($query2, $data2);
-                    $results3 = $thisDatabaseWriter->insert($query3, $data3);
                     $primaryKey = $thisDatabaseWriter->lastInsert();
                     if ($debug) {
                         print "<p>pmk= " . $primaryKey;
                     }
+                    $results2 = $thisDatabaseWriter->insert($query2, $data2);
+//                    $results3 = $thisDatabaseWriter->insert($query3, $data3);
+                    
                 
             }
-//                if ($_SERVER["REMOTE_USER"] == 'kbevins') {
-//                    $results = $thisDatabaseWriter->update($query, $data, 1, 0, 0, 0, false, false);
-//                    $results2 = $thisDatabaseWriter->update($query2, $data2, 1, 0, 0, 0, false, false);
-//                }
-//            } else {
-//                if ($_SERVER["REMOTE_USER"] == 'kbevins'){
-//                    $results = $thisDatabaseWriter->insert($query, $data);
-//                    $results2 = $thisDatabaseWriter->insert($query2, $data2);
-//                    $primaryKey = $thisDatabaseWriter->lastInsert();
-//                    if ($debug) {
-//                        print "<p>pmk= " . $primaryKey;
-//                    }
-//                }
-//            }
+//                
 
             // all sql statements are done so lets commit to our changes
             //if($_SERVER["REMOTE_USER"]=='kbevins'){
@@ -326,6 +310,89 @@ if (isset($_POST["btnSubmit"])) {
             $errorMsg[] = "There was a problem with accpeting your data please contact us directly.";
         }
     } // end form is valid
+     
+    $data3[] = $fldRating;
+    $data3[] = $primaryKey;
+    $data3[] = $pmkEmail;
+    $data3[] = $fldFavorite;
+    $data3[] = $fldDescription;
+    
+    if (!$errorMsg) {
+        
+        if ($debug) {
+            print "<p>Form is valid</p>";
+        }
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//
+// SECTION: 2e Save Data
+//
+     
+
+        $dataEntered = false;
+        try {
+            $thisDatabaseWriter->db->beginTransaction();
+   
+    
+            if ($update) {
+                
+                $query3 = 'UPDATE tblUsersBooks SET ';
+                
+            } 
+            else {
+                
+                $query3 = 'INSERT INTO tblUsersBooks SET ';
+            }
+
+            
+            $query3 .= 'fldRating = ?, ';
+            $query3 .= 'fnkBookId = ?, ';
+            $query3 .= 'fnkEmail = ?, ';
+            $query3 .= 'fldFavorite = ?, ';
+            $query3 .= 'fldDescription = ? ';
+            
+            
+
+            if ($update) {
+                
+                $query3 .= 'WHERE pmkReviewId = ?';
+//                
+                
+                
+               
+                
+               
+//                
+//                $data3[] = $pmkReviewId;
+                
+
+                    
+                    $results3 = $thisDatabaseWriter->update($query3, $data3, 1, 0, 0, 0, false, false);
+                
+            } else {
+               
+                    
+                    $results3 = $thisDatabaseWriter->insert($query3, $data3);
+                    
+                
+            }
+//                
+
+            // all sql statements are done so lets commit to our changes
+            //if($_SERVER["REMOTE_USER"]=='kbevins'){
+            $dataEntered = $thisDatabaseWriter->db->commit();
+            //else{
+               //  $thisDatabaseWriter->db->rollback();
+            
+            if ($debug)
+                print "<p>transaction complete ";
+        } catch (PDOEcxeption $e) {
+            $thisDatabaseWriter->db->rollback();
+            if ($debug)
+                print "Error!: " . $e->getMessage() . "</br>";
+            $errorMsg[] = "There was a problem with accpeting your data please contact us directly.";
+        }
+    }
 } // ends if form was submitted.
 //#############################################################################
 //
