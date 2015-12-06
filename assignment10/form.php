@@ -465,7 +465,7 @@ if (isset($_POST["btnSubmit"])) {
               method="post"
               id="frmRegister">
             <fieldset class="wrapper">
-                <legend>Add/Update Book Review</legend>
+                <legend><b>Add/Update Book Review</b></legend>
                 
                  <input type="hidden" id="hidBookId" name="hidBookId"
                        value="<?php print $pmkBookId; ?>"
@@ -504,8 +504,11 @@ if (isset($_POST["btnSubmit"])) {
                            onfocus="this.select()"
                            autofocus>
                 </label>
-                 </fieldset>
+                 </fieldset><br>
+                 
                  <fieldset class="wrapper">
+                    
+                 
                      <legend>Book Information</legend>
                 <label for="txtBookTitle" class="required">Book Title
                     <input type="text" id="txtBookTitle" name="txtBookTitle"
@@ -552,8 +555,9 @@ if (isset($_POST["btnSubmit"])) {
                 </label>                -->
                  </fieldset>
             </fieldset> <!-- ends contact -->
+            <br>
             <fieldset class="wrapper">
-                <legend>Review of Book</legend>
+                <legend><b>Review of Book</b></legend>
                     
                 <fieldset class="radio">
     <legend>Rating of book (1 = worst, 5 = best):</legend>

@@ -243,6 +243,10 @@ tr{
     border: 1px solid black;
 }
 
+tr .favorite{
+    background-color: lightgreen;
+}
+
 td{
     border: 1px solid black;
 }
@@ -256,6 +260,15 @@ aside{
     text-align: center;
     width: 60%;
     
+}
+
+#frmRegister{
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border: 2px solid black;
+    border-radius: 5px 5px 5px 5px;
 }
 
 

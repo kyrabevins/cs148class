@@ -14,16 +14,26 @@ if (isset($_GET['id'])) {
     $results = $thisDatabaseReader->select($query, "", 1, 1, 2, 0, false, false);
     print '<table class="usersRevs">';
     
+    print '<h2>All Reviews by User</h2>';
+    print '<tr>';
+    print '<td><b>Title</b></td>';
+    print '<td><b>Author</b></td>';
+    print '<td><b>Rating</b></td>';
+    print '<td><b>Review</b></td>';
+    print '<td><b>Favorite?</b></td>';
+    print '</tr>';
     foreach($results as $res){
+        
         print '<tr>';
         print '<td>' . $res["fldTitle"] . '</td>';
         print '<td>' . $res["fldAuthor"] . '</td>';
-        print '<td>' . $res["fldDateFinished"] . '</td>';
         print '<td>' . $res["fldRating"] . ' stars</td>';
         print '<td>' . $res["fldDescription"] . '</td>';
+        print '<td>' . $res["fldFavorite"] . '</td>';
         print '</tr>';
+        }
         
-}
+
 print '</table>';
 
 print '<p><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/tables.php">Back to Users</a></p>';
