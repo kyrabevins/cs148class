@@ -10,7 +10,7 @@ include "top.php";
 //
 // SECTION: 1 Initialize variables
 $update = false;
-$debug = true;
+
 
 // SECTION: 1a.
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -67,7 +67,13 @@ if (isset($_GET["id"])) {
 }
 
 
-    
+  
+
+// used for building email message to be sent and displayed
+$mailed = false;
+$messageA = "";
+$messageB = "";
+$messageC = "";
 
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -208,6 +214,8 @@ if (isset($_POST["btnSubmit"])) {
         $errorMsg[] = "Please enter your review of the book";
         $fldDescriptionERROR = true;
     }
+    
+      $messageA = '<h2>Thank you for registering.</h2>';
     
     //
     //// should check to make sure its the correct date format
@@ -412,6 +420,13 @@ if (isset($_POST["btnSubmit"])) {
 // to display the form.
     if ($dataEntered) { // closing of if marked with: end body submit
         print "<h1>Record Saved</h1> ";
+        $to = $pmkEmail; // the person who filled out the form
+            $cc = "";
+            $bcc = "";
+            $from = "Bibliophilia";
+            $subject = "Your review has been added!";
+
+            $mailed = sendMail($to, $cc, $bcc, $from, $subject, $messageA . $messageB . $messageC);
         
     } else {
 //####################################

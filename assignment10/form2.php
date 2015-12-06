@@ -10,7 +10,7 @@ include "top.php";
 //
 // SECTION: 1 Initialize variables
 $update = false;
-$debug = true;
+
 
 // SECTION: 1a.
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -52,7 +52,7 @@ if (isset($_GET["id"])) {
     } 
     
     else {
-    $pmkBookId = -1;
+    
     $pmkEmail = "";
     $fldFirstName = "";
     $fldLastName = "";
@@ -133,7 +133,7 @@ if (isset($_POST["btnSubmit"])) {
 //
 // Process for when the form passes validation (the errorMsg array is empty)
 //
-    
+   
     if (!$errorMsg) {
         
         if ($debug) {
@@ -156,6 +156,11 @@ if (isset($_POST["btnSubmit"])) {
                 $query .= 'pmkReviewId = ? ';
                 $data[] = $pmkReviewId;
                 $results = $thisDatabaseWriter->delete($query, $data, 1, 0, 0, 0, false, false);
+                
+                $primaryKey = $thisDatabaseWriter->lastInsert();
+                    if ($debug) {
+                        print "<p>pmk= " . $primaryKey;
+                    }
                 $dataEntered = $thisDatabaseWriter->db->commit();
             //else{
                //  $thisDatabaseWriter->db->rollback();
