@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CS148 Assignment 10</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Kyra Bevins">
+        <meta name="description" content="This site is for Assignment 10 of CS148.">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
 
 /* 
