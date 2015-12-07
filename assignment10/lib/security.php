@@ -32,6 +32,7 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages[] = "genreReviews.php";
      $whiteListPages[] = "form2.php";
      $whiteListPages[] = "index.php";
+     $whiteListPages[] = "footer.php";
     
     
     

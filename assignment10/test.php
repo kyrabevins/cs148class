@@ -49,3 +49,5 @@ print '<p><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/tables.php">Bac
     
     
 }
+
+include "footer.php";

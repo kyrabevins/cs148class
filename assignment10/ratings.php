@@ -63,4 +63,5 @@ $columns = 3;
     
     print '</section>';
         
+     include "footer.php";
     

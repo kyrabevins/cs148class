@@ -271,7 +271,16 @@ aside{
     border-radius: 5px 5px 5px 5px;
 }
 
-
+footer{
+    margin-top: 100px;
+    text-align: center;
+    background-image: url(https://kbevins.w3.uvm.edu/cs148develop/assignment10/background.png);
+    color: black;
+    font-size: 13pt;
+    padding: 10px;
+    border: 2px solid black;
+    font-weight: bold;
+}
 
 
 

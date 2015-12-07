@@ -32,3 +32,22 @@ $columns =4;
         print '</section>';
         
     }
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+print "<br>";
+
+  include "footer.php";

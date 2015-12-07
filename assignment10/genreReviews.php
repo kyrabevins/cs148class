@@ -43,4 +43,5 @@ print '<p><a href="https://kbevins.w3.uvm.edu/cs148/assignment10/genres.php">Bac
     
     
 }
+ include "footer.php";
 

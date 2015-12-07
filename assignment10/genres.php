@@ -165,4 +165,6 @@ $columns = 4;
         
         
         print '</section>';
+        
+          include "footer.php";
     

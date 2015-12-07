@@ -24,3 +24,6 @@ include "top.php";
 <br>
 <p>Welcome to Bibliophilia, the home of book lovers around the world. This web site provides readers with a centralized location where they can submit book reviews, look at others' reviews, and find out what people think about the latest books. Considering starting that book you've always wanted to read? Check here first to see what people think about it, before you decide to invest all of your time reading it. You can view books by genre, or you can view books by their average rating on the ratings page. You can also look at all of the reviews by user of the site. Take a look around, and start reading!</p>
 </section>
+    
+    <?php include "footer.php";
+    
