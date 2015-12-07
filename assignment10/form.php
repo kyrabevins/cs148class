@@ -665,6 +665,6 @@ include "footer.php";
 if ($debug)
     print "<p>END OF PROCESSING</p>";
 ?>
-</article>
+
 </body>
 </html>
